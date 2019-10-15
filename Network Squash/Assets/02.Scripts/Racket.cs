@@ -1,43 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 
 public class Racket : MonoBehaviour
 {
 
-    private Vector3 curRacket;
-    private Vector3 preRacket;
-    private Vector3 racketVel;
-    private Vector3 ballHit;
+    public SteamVR_Input_Sources hand = SteamVR_Input_Sources.Any;
+    public SteamVR_Action_Boolean trigger = SteamVR_Actions.default_InteractUI;
+
+    private Vector3 curRacket_pos;
+    private Vector3 preRacket_pos;
+    private Vector3 racketVelocity;
+
+    public float speed = 3.0f;
 
     void Start()
     {
-        // ballHit = BallCtrl.instance.ballVel;
+
     }
 
 
     void Update()
     {
         RacketSwing();
+
+        // if (trigger.GetStateDown(hand))
+        // {
+        //     RacketSwing();
+        // }
     }
 
     private void OnTriggerEnter(Collider other)
     {
 
         if (other.transform.CompareTag("BALL"))
-        {           
-            float power = racketVel.magnitude;
-            Debug.Log((power));
-            // Vector3 dir = other.Vector3
-            other.GetComponent<Rigidbody>().velocity = racketVel + BallCtrl.instance.ballPower*5f;
+        {
+            other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * speed;
         }
     }
     void RacketSwing()
     {
-        curRacket = transform.position;
-        racketVel = (curRacket - preRacket) / Time.deltaTime;
-        // float power = racketVel.magnitude;
+        curRacket_pos = transform.position;
+        racketVelocity = (curRacket_pos - preRacket_pos) / Time.deltaTime;
 
-        preRacket = curRacket;
+        preRacket_pos = curRacket_pos;
     }
 }

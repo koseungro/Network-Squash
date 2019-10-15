@@ -5,18 +5,13 @@ using UnityEngine;
 public class BallCtrl : MonoBehaviour
 {
     public static BallCtrl instance = null;
-
-    private Transform ballTr;
-    private Rigidbody rb;
     
-    private Vector3 curpos;
-    private Vector3 prepos;
-    // public Vector3 ballVel;
+    private Rigidbody rb;
+         
     public Vector3 ballPower;
-
     private Vector3 initialVelocity;
     private Vector3 lastFrameVelocity;
-    private float minVelocity = 10f;
+    private float minVelocity = 5f;
 
     Vector3 dir = new Vector3(1, 2, 2);
 
@@ -44,11 +39,7 @@ public class BallCtrl : MonoBehaviour
 
     public void OnCollisionEnter(Collision coll)
     {        
-        // curpos = coll.transform.position;
-        // ballVel= curpos - prepos;
-
-        // prepos = curpos; 
-        
+                
         if (coll.gameObject.CompareTag("WALL"))
         {            
             Bounce(coll.contacts[0].normal);
@@ -60,19 +51,19 @@ public class BallCtrl : MonoBehaviour
         // }
     }
 
-    void Bounce(Vector3 collisionNormal)
+    void Bounce(Vector3 collisionPoint)
     {
         float speed = lastFrameVelocity.magnitude;
-        Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
+        Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionPoint);
 
         rb.velocity = direction * Mathf.Max(speed, minVelocity);
         
     }
-    void Hit(Vector3 collisionNormal)
-    {
-        float speed = lastFrameVelocity.magnitude;
-        Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
+    // void Hit(Vector3 collisionNormal)
+    // {
+    //     float speed = lastFrameVelocity.magnitude;
+    //     Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
 
-        rb.velocity = direction * Mathf.Max(speed, 50);
-    }
+    //     rb.velocity = direction * Mathf.Max(speed, 50);
+    // }
 }

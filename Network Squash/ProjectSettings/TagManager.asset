@@ -7,7 +7,6 @@ TagManager:
   - WALL
   - BALL
   - RACKET
-  - HIT
   layers:
   - Default
   - TransparentFX
