@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Valve.VR;
 
 public class handanimations : MonoBehaviour
 {
+	// public SteamVR_Input_Sources hand = SteamVR_Input_Sources.Any;
+	// public SteamVR_Input_Sources leftHand;
+	// public SteamVR_Input_Sources rightHand;
+	
+	// public SteamVR_Action_Boolean trigger = SteamVR_Actions.default_InteractUI;
 
 	public GameObject ViveController;
 	public GameObject OculusController;
 	public GameObject StickUp;
 	public GameObject StickFront;
+
+	private GameObject grabbedRacket;
 
     Animator anim;
     int Idle = Animator.StringToHash("Idle");
@@ -35,9 +43,15 @@ public class handanimations : MonoBehaviour
 	int PressTriggerViveController = Animator.StringToHash("PressTriggerViveController");
 	int HoldOculusController = Animator.StringToHash("HoldOculusController");
 	int PressTriggerOculusController = Animator.StringToHash("PressTriggerOculusController");
+	// int hashIsGrabbing = Animator.StringToHash("IsGrabbing");
+	
 
     void Start ()
     {
+		// leftHand = SteamVR_Input_Sources.LeftHand;
+		// rightHand = SteamVR_Input_Sources.RightHand;
+		
+
         anim = GetComponent<Animator>();
 		OculusController.SetActive (false);
 		ViveController.SetActive (false);
@@ -47,6 +61,18 @@ public class handanimations : MonoBehaviour
 
     void Update()
     {
+		// if(trigger.GetStateDown(hand))
+		// {
+		// 	RacketGrab();
+
+		// }
+		
+		// else if(trigger.GetStateUp(hand))
+		// {
+		// 	Debug.Log("trigger released!");
+		// 	anim.SetBool(hashIsGrabbing, false);
+		// 	// grabbedRacket.GetComponent<Rigidbody>().isKinematic = false;
+		// }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             anim.SetTrigger(Idle);
@@ -255,4 +281,26 @@ public class handanimations : MonoBehaviour
 		}
     }
   
+// void OnTriggerStay(Collider other)
+// {
+	
+// 	if(other.gameObject.CompareTag("RACKET"))
+// 	{	
+// 		if(trigger.GetState(hand))
+// 		{
+// 			Debug.Log("racket grabbed!");
+// 		grabbedRacket = other.gameObject;
+// 		grabbedRacket.transform.SetParent(gameObject.transform);
+// 		grabbedRacket.GetComponent<Rigidbody>().isKinematic = true;
+// 		}
+// 	}
+// }
+
+// void RacketGrab()
+// {
+// 	Debug.Log("trigger clicked!");
+// 	anim.SetBool(hashIsGrabbing, true);
+
+// }
+
 }
