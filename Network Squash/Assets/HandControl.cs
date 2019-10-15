@@ -97,6 +97,9 @@ public class HandControl : MonoBehaviour {
                 grabbedBall.GetComponent<Rigidbody>().isKinematic = false;
                 grabbedBall.GetComponent<Rigidbody>().AddForce(ballVelocity * 100); //100은 임시로 정한 던지는 힘크기
             }
+
+
+
         }
         
     }
