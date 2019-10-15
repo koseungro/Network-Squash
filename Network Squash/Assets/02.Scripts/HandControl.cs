@@ -16,13 +16,37 @@ public class HandControl : MonoBehaviour {
     public Transform grabPosRacket;
     public Transform grabPosBall;
 
+    private Vector3 prePos_Racket;
+    private Vector3 curPos_Racket;
+    private Vector3 racketVelocity;
+
     private Vector3 prePos_Ball;
     private Vector3 curPos_Ball;
     private Vector3 ballVelocity;
 
+    //공 아웃라인
+    private Material outlineMt;
+    private MeshRenderer outline_Obj;
+    private Material[] matarray;
+
+    //라켓 아웃라인
+    private Material racketMt_default1;
+    private Material racketMt_default2;
+    private Material racketOutline1;
+    private Material racketOutline2;
+    private MeshRenderer outline_racket;
+    private Material[] matarray_r;
+
+ 
+
     void Start () 
     {
         anim = GetComponent<Animator> ();
+        outlineMt = Resources.Load<Material>("Outline");
+        racketMt_default1 = Resources.Load<Material>("RacketDefault1");
+        racketMt_default2 = Resources.Load<Material>("RacketDefault2");
+        racketOutline1 = Resources.Load<Material>("RacketOutline1");
+        racketOutline2 = Resources.Load<Material>("RacketOutline2");
     }
 
     // Update is called once per frame
@@ -38,13 +62,21 @@ public class HandControl : MonoBehaviour {
            
         }
 
+        //잡고 있는 라켓 velocity 구하기
+        if(grabbedRacket)
+        curPos_Racket = grabbedRacket.transform.position;
+        racketVelocity = (curPos_Racket-prePos_Racket)/Time.deltaTime;
+
+        prePos_Racket = curPos_Racket;
+
+
+        //잡고 있는 공 velocity 구하기
         if(grabbedBall)
         curPos_Ball = grabbedBall.transform.position;
         ballVelocity = (curPos_Ball-prePos_Ball)/Time.deltaTime;
 
         prePos_Ball = curPos_Ball;
 
-        // Debug.Log("ballvelocity = " + ballVelocity);
 
     }
 
@@ -53,14 +85,28 @@ public class HandControl : MonoBehaviour {
         anim.SetBool (hashIsGrabbingRacket, true);
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
+        if(other.CompareTag("BALL"))
+        {
+            outline_Obj = other.GetComponent<MeshRenderer>();
+            highlightBall();
+
+        }
+        if(other.CompareTag("RACKET"))
+        {          
+            outline_racket = other.GetComponent<MeshRenderer>();
+            highlightRacket();
+        }
+        
+    }
+
+    void OnTriggerStay(Collider other)
+    {        
         if(other.CompareTag("RACKET"))
         {
-             
             if(trigger.GetStateDown(hand))
-            {
-                
+            {                
                 grabbedRacket = other.gameObject;
                 grabbedRacket.transform.SetParent(transform);
                 grabbedRacket.GetComponent<Rigidbody>().isKinematic = true;
@@ -68,12 +114,18 @@ public class HandControl : MonoBehaviour {
                 grabbedRacket.transform.localRotation = grabPosRacket.localRotation;
 
             }
+            if(trigger.GetState(hand))  
+            {
+                offlightRacket();
+            }
 
             if(trigger.GetStateUp(hand))
             {
-                // grabbedRacket.GetComponent<Rigidbody>().isKinematic = false;
+                anim.SetBool (hashIsGrabbingRacket, false);
                 grabbedRacket.transform.parent = null;
-
+                grabbedRacket.GetComponent<Rigidbody>().isKinematic = false;
+                grabbedRacket.GetComponent<Rigidbody>().AddForce(racketVelocity * 100); //100은 임시로 정한 던지는 힘크기
+                offlightRacket();
             }
         }
 
@@ -86,8 +138,12 @@ public class HandControl : MonoBehaviour {
                 grabbedBall = other.gameObject;
                 grabbedBall.transform.SetParent(transform);
                 grabbedBall.GetComponent<Rigidbody>().isKinematic = true;
-                grabbedBall.transform.localPosition = grabPosBall.localPosition;
-                
+                grabbedBall.transform.localPosition = grabPosBall.localPosition;               
+            }
+
+            if(trigger.GetState(hand))
+            {
+                offlightBall();
             }
 
             if(trigger.GetStateUp(hand))
@@ -99,5 +155,45 @@ public class HandControl : MonoBehaviour {
             }
         }
         
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("BALL"))
+        {
+            offlightBall();
+        }
+        if(other.CompareTag("RACKET"))
+        {
+            offlightRacket();
+        }
+    }
+
+    void highlightBall()
+    {
+            matarray = outline_Obj.materials;
+            matarray[1] = outlineMt;
+            outline_Obj.materials = matarray;
+    }
+
+    void offlightBall()
+    {
+        matarray[1] = null;
+        outline_Obj.materials = matarray;
+    }
+    void highlightRacket()
+    {
+        matarray_r = outline_racket.materials;
+        matarray_r[0] = racketOutline1;
+        matarray_r[1] = racketOutline2;
+        outline_racket.materials = matarray_r;
+
+    }
+    void offlightRacket()
+    {
+        matarray_r[0] = racketMt_default1;
+        matarray_r[1] = racketMt_default2;
+        outline_racket.materials = matarray_r;
+
     }
 }
