@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Racket : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Rigidbody rb;
+    private Vector3 _velocity;
+
+    private float _sensitivity = 100f;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
