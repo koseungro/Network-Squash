@@ -56,7 +56,7 @@ public class HandControl : MonoBehaviour {
 
             if(trigger.GetStateUp(hand))
             {
-                grabbedRacket.GetComponent<Rigidbody>().isKinematic = false;
+                // grabbedRacket.GetComponent<Rigidbody>().isKinematic = false;
                 grabbedRacket.transform.parent = null;
 
             }
