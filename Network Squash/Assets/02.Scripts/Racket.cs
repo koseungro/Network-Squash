@@ -8,9 +8,10 @@ public class Racket : MonoBehaviour
     private Vector3 _velocity;
 
     private float _sensitivity = 100f;
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     
