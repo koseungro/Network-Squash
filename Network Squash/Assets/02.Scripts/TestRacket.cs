@@ -25,6 +25,6 @@ public class TestRacket : MonoBehaviour
             transform.position - target.transform.position);
         Vector3 bounceVector =
             Vector3.Reflect(coll.relativeVelocity, inNormal);
-            target.GetComponent<Rigidbody>().AddForce(bounceVector * force, ForceMode.VelocityChange);
+            target.GetComponent<Rigidbody>().AddForce(bounceVector * force, ForceMode.Force);
     }
 }
