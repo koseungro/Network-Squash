@@ -7,11 +7,18 @@ public class HandControl : MonoBehaviour {
     public SteamVR_Input_Sources hand = SteamVR_Input_Sources.Any;
     public SteamVR_Action_Boolean trigger = SteamVR_Actions.default_InteractUI;
 
+    private int hashIsGrabbingRacket = Animator.StringToHash ("IsGrabbingRacket");
+    private int hashIsGrabbingBall = Animator.StringToHash("IsGrabbingBall");
     private Animator anim;
-    private int hashIsGrabbing = Animator.StringToHash ("IsGrabbing");
     private GameObject grabbedRacket;
+    private GameObject grabbedBall;
 
-    public Transform grabPos;
+    public Transform grabPosRacket;
+    public Transform grabPosBall;
+
+    private Vector3 prePos_Ball;
+    private Vector3 curPos_Ball;
+    private Vector3 ballVelocity;
 
     void Start () 
     {
@@ -27,14 +34,23 @@ public class HandControl : MonoBehaviour {
         } 
         else if (trigger.GetStateUp (hand)) 
         {           
-            anim.SetBool (hashIsGrabbing, false);
+            anim.SetBool (hashIsGrabbingRacket, false);
            
         }
+
+        if(grabbedBall)
+        curPos_Ball = grabbedBall.transform.position;
+        ballVelocity = (curPos_Ball-prePos_Ball)/Time.deltaTime;
+
+        prePos_Ball = curPos_Ball;
+
+        // Debug.Log("ballvelocity = " + ballVelocity);
+
     }
 
     void RacketGrab () 
     {       
-        anim.SetBool (hashIsGrabbing, true);
+        anim.SetBool (hashIsGrabbingRacket, true);
     }
 
     void OnTriggerStay(Collider other)
@@ -44,14 +60,13 @@ public class HandControl : MonoBehaviour {
              
             if(trigger.GetStateDown(hand))
             {
-                Debug.Log("racket 잡자!");
+                
                 grabbedRacket = other.gameObject;
                 grabbedRacket.transform.SetParent(transform);
                 grabbedRacket.GetComponent<Rigidbody>().isKinematic = true;
-                grabbedRacket.transform.localPosition = grabPos.localPosition;
-                grabbedRacket.transform.localRotation = grabPos.localRotation;
-                // grabbedRacket.transform.localPosition = new Vector3(0.06f, 0.0054f, 0.1f);
-                // grabbedRacket.transform.localRotation = new Quaternion(254.0f, -7.23f, -136.0f, 0);
+                grabbedRacket.transform.localPosition = grabPosRacket.localPosition;
+                grabbedRacket.transform.localRotation = grabPosRacket.localRotation;
+
             }
 
             if(trigger.GetStateUp(hand))
@@ -59,6 +74,28 @@ public class HandControl : MonoBehaviour {
                 // grabbedRacket.GetComponent<Rigidbody>().isKinematic = false;
                 grabbedRacket.transform.parent = null;
 
+            }
+        }
+
+        else if(other.CompareTag("BALL"))
+        {
+            if(trigger.GetStateDown(hand))
+            {
+                anim.SetBool (hashIsGrabbingBall, true);
+
+                grabbedBall = other.gameObject;
+                grabbedBall.transform.SetParent(transform);
+                grabbedBall.GetComponent<Rigidbody>().isKinematic = true;
+                grabbedBall.transform.localPosition = grabPosBall.localPosition;
+                
+            }
+
+            if(trigger.GetStateUp(hand))
+            {
+                anim.SetBool (hashIsGrabbingBall, false);
+                grabbedBall.transform.parent = null;
+                grabbedBall.GetComponent<Rigidbody>().isKinematic = false;
+                grabbedBall.GetComponent<Rigidbody>().AddForce(ballVelocity * 100); //100은 임시로 정한 던지는 힘크기
             }
         }
         
