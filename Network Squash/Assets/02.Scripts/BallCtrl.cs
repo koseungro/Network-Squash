@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class BallCtrl : MonoBehaviour
 {
+    public static BallCtrl instance = null;
+
     private Transform ballTr;
     private Rigidbody rb;
+    
+    private Vector3 curpos;
+    private Vector3 prepos;
+    // public Vector3 ballVel;
+    public Vector3 ballPower;
 
     private Vector3 initialVelocity;
     private Vector3 lastFrameVelocity;
@@ -16,8 +23,12 @@ public class BallCtrl : MonoBehaviour
 
     void Start()
     {
+        instance = this;
+
         rb = GetComponent<Rigidbody>();
         rb.velocity = initialVelocity;
+
+        ballPower = Vector3.forward;
     }
 
 
@@ -31,17 +42,22 @@ public class BallCtrl : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision coll)
-    {
+    public void OnCollisionEnter(Collision coll)
+    {        
+        // curpos = coll.transform.position;
+        // ballVel= curpos - prepos;
+
+        // prepos = curpos; 
+        
         if (coll.gameObject.CompareTag("WALL"))
-        {
+        {            
             Bounce(coll.contacts[0].normal);
         }
-        if (coll.gameObject.CompareTag("HIT"))
-        {
-            
-            Hit(coll.contacts[0].normal);
-        }
+        // if (coll.gameObject.CompareTag("RACKET"))
+        // {
+
+        //     Hit(coll.contacts[0].normal);
+        // }
     }
 
     void Bounce(Vector3 collisionNormal)
@@ -50,7 +66,7 @@ public class BallCtrl : MonoBehaviour
         Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
 
         rb.velocity = direction * Mathf.Max(speed, minVelocity);
-
+        
     }
     void Hit(Vector3 collisionNormal)
     {
