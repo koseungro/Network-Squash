@@ -12,14 +12,14 @@ public class NetworkManager : Photon.MonoBehaviour
 
 	void Start()
 	{
-		photonView.RPC("StartGame", PhotonTargets.All);
+		PhotonNetwork.Instantiate("SquashPlayer", spawnPoint1.position, spawnPoint1.rotation, 0);
+		
 	}
 
-	[PunRPC]
-	void StartGame()
-	{
+	//[PunRPC]
+	//void StartGame()
+	//{
 		
-		Debug.Log("Joined Room!");
-		PhotonNetwork.Instantiate("SquashPlayer", spawnPoint1.position, spawnPoint1.rotation, 0);
-	}
+	//	Debug.Log("Joined Room!");
+	//}
 }
