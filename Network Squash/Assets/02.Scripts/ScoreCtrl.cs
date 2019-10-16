@@ -9,7 +9,7 @@ public class ScoreCtrl : MonoBehaviour
                 
     public GameObject ball;
     public Transform ballRespawn1;
-    public Transform ballReapawn2;
+    public Transform ballRespawn2;
         
     private int score1;
     private int score2;
@@ -36,6 +36,9 @@ public class ScoreCtrl : MonoBehaviour
         if(score1 >= 2)
         {
             Player1Win();
+            //StopAllCoroutines();
+            //Invoke("Player1GameSet", 3f);
+
         }
         if(score2 >= 10)
         {
@@ -63,14 +66,14 @@ public class ScoreCtrl : MonoBehaviour
     }
     void Player1Win()
     {
-        text.text = "Player1 Win!";
-
+        //text.text = "Player1 Win!";
+        VictoryText.instance.Player1Win();
         StartCoroutine(ScoreReset());
     }
     void Player2Win()
     {
-        text.text = "Player2 Win!";
-
+        //text.text = "Player2 Win!";
+        VictoryText.instance.Player2Win();
         StartCoroutine(ScoreReset());
     }
     IEnumerator RespawnBall1()
@@ -82,11 +85,19 @@ public class ScoreCtrl : MonoBehaviour
     IEnumerator RespawnBall2()
     {
         yield return new WaitForSeconds(0.5f);
+        Instantiate(ball, ballRespawn2.position, ballRespawn2.rotation);
+    }
+    void Player1GameSet()
+    {
         Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
+    }
+    void Player2GameSet()
+    {
+        Instantiate(ball, ballRespawn2.position, ballRespawn2.rotation);
     }
     IEnumerator ScoreReset()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         score1 = 0;
         score2 = 0;
     }
