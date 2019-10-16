@@ -23,7 +23,7 @@ public class BallCtrl : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.velocity = initialVelocity;
 
-        ballPower = Vector3.forward;
+        ballPower = Vector3.forward; //업데이트문으로?
     }
 
 
@@ -49,6 +49,19 @@ public class BallCtrl : MonoBehaviour
 
         //     Hit(coll.contacts[0].normal);
         // }
+
+        if (coll.gameObject.tag == "Goal1") 
+        {
+            ScoreCtrl.instance.AddScore2();
+            Destroy(gameObject);
+        }
+
+        if (coll.gameObject.tag == "Goal2")
+        {
+            ScoreCtrl.instance.AddScore1();
+            Destroy(gameObject);
+        }
+
     }
 
     void Bounce(Vector3 collisionPoint)

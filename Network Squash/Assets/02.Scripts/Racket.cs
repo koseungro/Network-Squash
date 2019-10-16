@@ -13,7 +13,7 @@ public class Racket : MonoBehaviour
     private Vector3 preRacket_pos;
     private Vector3 racketVelocity;
 
-    public float speed = 3.0f;
+    public float speed = 2.0f;
 
     void Start()
     {
@@ -36,7 +36,7 @@ public class Racket : MonoBehaviour
 
         if (other.transform.CompareTag("BALL"))
         {
-            other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * speed;
+            other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * 2f;
         }
     }
     void RacketSwing()
