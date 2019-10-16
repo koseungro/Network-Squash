@@ -7,7 +7,12 @@ TagManager:
   - WALL
   - BALL
   - RACKET
-  - BALLEFFECT
+
+  - FxTemporaire
+  - projectile
+  - Goal1
+  - Goal2
+
   layers:
   - Default
   - TransparentFX
