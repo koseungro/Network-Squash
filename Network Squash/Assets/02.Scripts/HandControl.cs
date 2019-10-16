@@ -151,7 +151,7 @@ public class HandControl : MonoBehaviour {
                 anim.SetBool (hashIsGrabbingBall, false);
                 grabbedBall.transform.parent = null;
                 grabbedBall.GetComponent<Rigidbody>().isKinematic = false;
-                grabbedBall.GetComponent<Rigidbody>().AddForce(ballVelocity * 100); //100은 임시로 정한 던지는 힘크기
+                grabbedBall.GetComponent<Rigidbody>().AddForce(ballVelocity * 50); //50은 임시로 정한 던지는 힘크기
             }
         }
         
