@@ -33,7 +33,7 @@ public class ScoreCtrl : MonoBehaviour
             score1 = 0;
             score2 = 0;
         }
-        if(score1 >= 10)
+        if(score1 >= 2)
         {
             Player1Win();
         }
@@ -47,7 +47,7 @@ public class ScoreCtrl : MonoBehaviour
     
     public void AddScore1()
     {
-        if(score1 < 11)
+        if(score1 < 3)
         {
             score1++;            
             StartCoroutine(RespawnBall1());
@@ -65,15 +65,13 @@ public class ScoreCtrl : MonoBehaviour
     {
         text.text = "Player1 Win!";
 
-        score1 = 0;
-        score2 = 0;
+        StartCoroutine(ScoreReset());
     }
     void Player2Win()
     {
         text.text = "Player2 Win!";
 
-        score1 = 0;
-        score2 = 0;
+        StartCoroutine(ScoreReset());
     }
     IEnumerator RespawnBall1()
     {
@@ -85,5 +83,11 @@ public class ScoreCtrl : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
+    }
+    IEnumerator ScoreReset()
+    {
+        yield return new WaitForSeconds(1f);
+        score1 = 0;
+        score2 = 0;
     }
 }
