@@ -16,8 +16,8 @@ public class NetworkMgr : Photon.MonoBehaviour
     {
 		PhotonNetwork.Instantiate("NetworkPlayer", player1Pos.position, player1Pos.rotation, 0);
 		PhotonNetwork.InstantiateSceneObject("Ball_Network", ballSpawnPoint.position, ballSpawnPoint.rotation, 0, null);
-    PhotonNetwork.InstantiateSceneObject("Racket_Network", racketSpawnPoint1.position, racketSpawnPoint1.rotation, 0, null);
-    PhotonNetwork.InstantiateSceneObject("Racket_Network", racketSpawnPoint2.position, racketSpawnPoint2.rotation, 0, null);
+    PhotonNetwork.Instantiate("Racket_Network", racketSpawnPoint1.position, racketSpawnPoint1.rotation, 0, null);
+    PhotonNetwork.Instantiate("Racket_Network", racketSpawnPoint2.position, racketSpawnPoint2.rotation, 0, null);
     }
 
     // Update is called once per frame

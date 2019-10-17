@@ -17,10 +17,8 @@ public class BallCtrl : Photon.MonoBehaviour
     public AudioClip bounceWall;
     public AudioClip goal;
 
-
-
-
     Vector3 dir = new Vector3(1, 2, 2);
+
 
 
     void Start()
@@ -53,13 +51,10 @@ public class BallCtrl : Photon.MonoBehaviour
         {
             _audio.PlayOneShot(bounceWall);
             
-            Transform ball_Tr_atColl = transform;
+            Bounce(coll.contacts[0].normal);
+            // Transform ball_Tr_atColl = transform;
 
-            photonView.RPC("Bounce", PhotonTargets.All, ball_Tr_atColl.position, ball_Tr_atColl.rotation, coll.contacts[0].normal);
-
-            
-            // Bounce(coll.contacts[0].normal);
-            
+            // photonView.RPC("Bounce", PhotonTargets.All, ball_Tr_atColl.position, ball_Tr_atColl.rotation, coll.contacts[0].normal);           
         }
         // if (coll.gameObject.CompareTag("RACKET"))
         // {
@@ -85,19 +80,27 @@ public class BallCtrl : Photon.MonoBehaviour
 
     }
 
-    [PunRPC]
-    void Bounce(Vector3 ball_tr, Quaternion ball_Rot, Vector3 collisionPoint)
-    {
-        //position 과 rotation 동기화
-        transform.position = ball_tr;
-        transform.rotation = ball_Rot;
+void Bounce(Vector3 collisionPoint)
+{
+    float speed = lastFrameVelocity.magnitude;
+    Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionPoint);
 
-        float speed = lastFrameVelocity.magnitude;
-        Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionPoint);
+    rb.velocity = direction * Mathf.Max(speed, minVelocity) * 0.7f;
+}
 
-        rb.velocity = direction * Mathf.Max(speed, minVelocity) * 0.7f;
+    // [PunRPC]
+    // void Bounce(Vector3 ball_tr, Quaternion ball_Rot, Vector3 collisionPoint)
+    // {
+    //     //position 과 rotation 동기화
+    //     transform.position = ball_tr;
+    //     transform.rotation = ball_Rot;
+
+    //     float speed = lastFrameVelocity.magnitude;
+    //     Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionPoint);
+
+    //     rb.velocity = direction * Mathf.Max(speed, minVelocity) * 0.7f;
         
-    }
+    // }
     // void Hit(Vector3 collisionNormal)
     // {
     //     float speed = lastFrameVelocity.magnitude;
