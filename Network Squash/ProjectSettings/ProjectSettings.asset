@@ -722,8 +722,8 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   cloudProjectId: 4c9b94a1-b9cb-4988-8920-30af66fc154c
   framebufferDepthMemorylessMode: 0
-  projectName: EffectsExamples
-  organizationId: 
+  projectName: Network Squash
+  organizationId: hangksgogo
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

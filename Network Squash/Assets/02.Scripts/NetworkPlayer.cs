@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetworkPlayer : Photon.MonoBehaviour, IPunObservable
+public class NetworkPlayer : Photon.MonoBehaviour
 {
 	public GameObject myCamera;
 
@@ -18,13 +18,5 @@ public class NetworkPlayer : Photon.MonoBehaviour, IPunObservable
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-	{
-
-	}
 }
