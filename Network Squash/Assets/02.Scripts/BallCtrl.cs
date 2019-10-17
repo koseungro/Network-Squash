@@ -73,10 +73,7 @@ public class BallCtrl : MonoBehaviour
             Destroy(gameObject);
             
         }
-        if(coll.gameObject.tag == "Finish")
-        {
-            _audio.PlayOneShot(goal);
-        }
+        
 
     }
 
