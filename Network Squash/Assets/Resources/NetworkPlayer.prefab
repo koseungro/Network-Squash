@@ -52,8 +52,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 4619825097652984545}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 2
-  instantiationId: 2
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &4619825097652984545
@@ -504,6 +504,7 @@ GameObject:
   - component: {fileID: 5042835442295836996}
   - component: {fileID: 5042835442288281636}
   - component: {fileID: 4876002887532785522}
+  - component: {fileID: 4380994431250582613}
   m_Layer: 0
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -614,6 +615,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCamera: {fileID: 5041865115932816282}
+--- !u!114 &4380994431250582613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5042835442298960486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &5042835442298972438
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +728,10 @@ MonoBehaviour:
   grab:
     actionPath: /actions/default/in/GrabGrip
     needsReinit: 0
+  racketVelocity: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
+  racketDown: {fileID: 0}
+  ballHit: {fileID: 0}
   speed: 5
   racketRespawn1: {fileID: 0}
 --- !u!135 &6493647443958935642
@@ -817,8 +848,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 805581580238036731}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 3
-  instantiationId: 3
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &6266130955229827011
@@ -970,8 +1001,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 3661501111793310523}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!1 &8979913070297417429

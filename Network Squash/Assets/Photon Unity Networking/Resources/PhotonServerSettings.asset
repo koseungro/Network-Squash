@@ -44,4 +44,6 @@ MonoBehaviour:
   - RequestForPickupTimes
   - StartGame
   - TaggedPlayer
+  - Bounce
+  - Hit
   DisableAutoOpenWizard: 1

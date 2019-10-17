@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2090688827081490995}
   - component: {fileID: 2090688827081490992}
   - component: {fileID: 6252744695517981530}
+  - component: {fileID: 2863118432638834931}
   m_Layer: 0
   m_Name: Ball_Network
   m_TagString: BALL
@@ -109,6 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPower: {x: 0, y: 0, z: 0}
+  bounceWall: {fileID: 0}
+  goal: {fileID: 0}
 --- !u!54 &2090688827081490992
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -239,3 +242,30 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &2863118432638834931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090688827081490993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
