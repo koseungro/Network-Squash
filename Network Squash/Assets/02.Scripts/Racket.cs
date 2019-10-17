@@ -13,7 +13,7 @@ public class Racket : MonoBehaviour
 
     private Vector3 curRacket_pos;
     private Vector3 preRacket_pos;
-    private Vector3 racketVelocity;
+    public Vector3 racketVelocity;
     private Transform tr;
     private Rigidbody rb;
     public GameObject player;
@@ -55,7 +55,7 @@ public class Racket : MonoBehaviour
 
         if (other.transform.CompareTag("BALL"))
         {
-            other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * 0.1f;
+            // other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * 0.1f;
             _audio.PlayOneShot(ballHit);
             PlayerCtrl.instance.FaceChange();
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallCtrl : MonoBehaviour
+public class BallCtrl : Photon.MonoBehaviour
 {
     public static BallCtrl instance = null;
     
@@ -45,13 +45,21 @@ public class BallCtrl : MonoBehaviour
         }
     }
 
+
     public void OnCollisionEnter(Collision coll)
     {        
                 
         if (coll.gameObject.CompareTag("WALL") || coll.gameObject.CompareTag("Player"))
         {
             _audio.PlayOneShot(bounceWall);
-            Bounce(coll.contacts[0].normal);
+            
+            Transform ball_Tr_atColl = transform;
+
+            photonView.RPC("Bounce", PhotonTargets.All, ball_Tr_atColl.position, ball_Tr_atColl.rotation, coll.contacts[0].normal);
+
+            
+            // Bounce(coll.contacts[0].normal);
+            
         }
         // if (coll.gameObject.CompareTag("RACKET"))
         // {
@@ -77,8 +85,13 @@ public class BallCtrl : MonoBehaviour
 
     }
 
-    void Bounce(Vector3 collisionPoint)
+    [PunRPC]
+    void Bounce(Vector3 ball_tr, Quaternion ball_Rot, Vector3 collisionPoint)
     {
+        //position 과 rotation 동기화
+        transform.position = ball_tr;
+        transform.rotation = ball_Rot;
+
         float speed = lastFrameVelocity.magnitude;
         Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionPoint);
 
@@ -92,5 +105,26 @@ public class BallCtrl : MonoBehaviour
 
     //     rb.velocity = direction * Mathf.Max(speed, 50);
     // }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("RACKET"))
+        {
+            Transform ball_Trans_Coll = transform;
+            Vector3 racketVel = other.GetComponent<Racket>().racketVelocity;
+            
+            photonView.RPC("Hit", PhotonTargets.All, ball_Trans_Coll.position, ball_Trans_Coll.rotation, racketVel);
+        }
+    }
+
+
+    [PunRPC]
+    void Hit(Vector3 ballTr, Quaternion ballRot, Vector3 racket_Vel)
+    {
+        transform.position = ballTr;
+        transform.rotation = ballRot;
+
+        rb.velocity = racket_Vel + ballPower * 0.1f;
+    }
     
 }
