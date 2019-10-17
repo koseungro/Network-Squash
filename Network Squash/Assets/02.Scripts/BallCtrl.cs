@@ -69,7 +69,7 @@ public class BallCtrl : MonoBehaviour
         float speed = lastFrameVelocity.magnitude;
         Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionPoint);
 
-        rb.velocity = direction * Mathf.Max(speed, minVelocity);
+        rb.velocity = direction * Mathf.Max(speed, minVelocity) * 0.7f;
         
     }
     // void Hit(Vector3 collisionNormal)

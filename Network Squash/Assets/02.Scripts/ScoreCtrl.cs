@@ -33,24 +33,23 @@ public class ScoreCtrl : MonoBehaviour
             score1 = 0;
             score2 = 0;
         }
-        if(score1 >= 2)
+        if(score1 >= 11)
         {
             Player1Win();
-            //StopAllCoroutines();
-            //Invoke("Player1GameSet", 3f);
-
+            
         }
-        if(score2 >= 10)
+        if(score2 >= 11)
         {
             Player2Win();
         }
 
-        text.text = score1 + "  :  " + score2;
+        //text.text = score1 + "  :  " + score2;
+        text.text = score1.ToString("00") + "  :  " + score2.ToString("00");
     }
     
     public void AddScore1()
     {
-        if(score1 < 3)
+        if(score1 < 12)
         {
             score1++;            
             StartCoroutine(RespawnBall1());
@@ -58,7 +57,7 @@ public class ScoreCtrl : MonoBehaviour
     }
     public void AddScore2()
     {
-        if(score2 < 11)
+        if(score2 < 12)
         {
             score2++;            
             StartCoroutine(RespawnBall2());
@@ -97,7 +96,7 @@ public class ScoreCtrl : MonoBehaviour
     }
     IEnumerator ScoreReset()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         score1 = 0;
         score2 = 0;
     }
