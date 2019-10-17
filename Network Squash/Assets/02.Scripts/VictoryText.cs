@@ -15,11 +15,6 @@ public class VictoryText : MonoBehaviour
         text = GetComponent<Text>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void Player1Win()
     {
         text.text = "Player1 Win!!";

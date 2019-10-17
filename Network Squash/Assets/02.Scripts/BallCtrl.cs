@@ -68,7 +68,7 @@ public class BallCtrl : MonoBehaviour
 
         if (coll.gameObject.tag == "Goal2")
         {            
-            ScoreCtrl.instance.AddScore1();
+            ScoreCtrl.instance.AddScore1();                    
             _audio.PlayOneShot(goal);
             Destroy(gameObject);
             
