@@ -17,6 +17,9 @@ public class Racket : MonoBehaviour
     private Transform tr;
     private Rigidbody rb;
     public GameObject player;
+    public AudioClip racketDown;
+    public AudioClip ballHit;
+    private AudioSource _audio;
 
     public float speed = 2.0f;
 
@@ -28,6 +31,7 @@ public class Racket : MonoBehaviour
         //hand = pose.inputSource;
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
+        _audio = GetComponent<AudioSource>();
     }
 
 
@@ -52,7 +56,12 @@ public class Racket : MonoBehaviour
         if (other.transform.CompareTag("BALL"))
         {
             other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * 0.1f;
+            _audio.PlayOneShot(ballHit);
             PlayerCtrl.instance.FaceChange();
+        }
+        if(other.transform.CompareTag("WALL"))
+        {
+            _audio.PlayOneShot(racketDown);
         }
     }
     void RacketSwing()

@@ -9,9 +9,16 @@ public class BallCtrl : MonoBehaviour
     private Rigidbody rb;
          
     public Vector3 ballPower;
-    private Vector3 initialVelocity;
+    //private Vector3 initialVelocity;
     private Vector3 lastFrameVelocity;
     private float minVelocity = 5f;
+    private AudioSource _audio;
+
+    public AudioClip bounceWall;
+    public AudioClip goal;
+
+
+
 
     Vector3 dir = new Vector3(1, 2, 2);
 
@@ -21,7 +28,8 @@ public class BallCtrl : MonoBehaviour
         instance = this;
 
         rb = GetComponent<Rigidbody>();
-        rb.velocity = initialVelocity;
+        _audio = GetComponent<AudioSource>();
+        //rb.velocity = initialVelocity;
 
         ballPower = Vector3.forward; //업데이트문으로?
     }
@@ -40,8 +48,9 @@ public class BallCtrl : MonoBehaviour
     public void OnCollisionEnter(Collision coll)
     {        
                 
-        if (coll.gameObject.CompareTag("WALL"))
-        {            
+        if (coll.gameObject.CompareTag("WALL") || coll.gameObject.CompareTag("Player"))
+        {
+            _audio.PlayOneShot(bounceWall);
             Bounce(coll.contacts[0].normal);
         }
         // if (coll.gameObject.CompareTag("RACKET"))
@@ -53,13 +62,20 @@ public class BallCtrl : MonoBehaviour
         if (coll.gameObject.tag == "Goal1") 
         {
             ScoreCtrl.instance.AddScore2();
+            _audio.PlayOneShot(goal);
             Destroy(gameObject);
         }
 
         if (coll.gameObject.tag == "Goal2")
-        {
+        {            
             ScoreCtrl.instance.AddScore1();
+            _audio.PlayOneShot(goal);
             Destroy(gameObject);
+            
+        }
+        if(coll.gameObject.tag == "Finish")
+        {
+            _audio.PlayOneShot(goal);
         }
 
     }
@@ -79,4 +95,5 @@ public class BallCtrl : MonoBehaviour
 
     //     rb.velocity = direction * Mathf.Max(speed, 50);
     // }
+    
 }

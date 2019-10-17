@@ -10,7 +10,7 @@ public class ScoreCtrl : MonoBehaviour
     public GameObject ball;
     public Transform ballRespawn1;
     public Transform ballRespawn2;
-        
+    
     private int score1;
     private int score2;
     private Text text;
@@ -20,7 +20,7 @@ public class ScoreCtrl : MonoBehaviour
         instance = this;
         Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
 
-        text = GetComponent<Text>();
+        text = GetComponent<Text>();        
         score1 = 0;
         score2 = 0;
     }
