@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class NetworkPlayer : Photon.MonoBehaviour
 {
-	public GameObject myCamera;
+	public GameObject playerHead;
+	Camera cam;
+	AudioSource sound;
 
 
 
@@ -13,7 +15,12 @@ public class NetworkPlayer : Photon.MonoBehaviour
     {
 		if (photonView.isMine)
 		{
-			myCamera.SetActive(true);
+			cam = playerHead.GetComponent<Camera>();
+			cam.enabled = true;
+
+			sound = playerHead.GetComponent<AudioSource>();
+			sound.enabled = true;
+			// myCamera.SetActive(true);
 		}
     }
 
