@@ -75,6 +75,7 @@ public class Racket : MonoBehaviour
             _hit = Instantiate(hit, other.transform.position, other.transform.rotation);
 
             // other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * 0.5f;
+
             _audio.PlayOneShot(ballHit);
             PlayerCtrl.instance.FaceChange();
             Debug.Log("Hit");
