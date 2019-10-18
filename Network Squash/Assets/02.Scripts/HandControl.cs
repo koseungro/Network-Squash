@@ -109,53 +109,58 @@ public class HandControl : Photon.MonoBehaviour {
     {        
         if(other.CompareTag("RACKET"))
         {
-            if(trigger.GetStateDown(hand))
-            {                
-                grabbedRacket = other.gameObject;
-                grabbedRacket.transform.SetParent(transform);
-                grabbedRacket.GetComponent<Rigidbody>().isKinematic = true;
-                grabbedRacket.transform.localPosition = grabPosRacket.localPosition;
-                grabbedRacket.transform.localRotation = grabPosRacket.localRotation;
-
-            }
-            if(trigger.GetState(hand))  
+            if(photonView.isMine)
             {
-                offlightRacket();
-            }
+                if(trigger.GetStateDown(hand))
+                    {                
+                    grabbedRacket = other.gameObject;
+                    grabbedRacket.transform.SetParent(transform);
+                    grabbedRacket.GetComponent<Rigidbody>().isKinematic = true;
+                    grabbedRacket.transform.localPosition = grabPosRacket.localPosition;
+                    grabbedRacket.transform.localRotation = grabPosRacket.localRotation;
+                    }
+                if(trigger.GetState(hand))  
+                    {
+                    offlightRacket();
+                    }
 
             if(trigger.GetStateUp(hand))
-            {
+                {
                 anim.SetBool (hashIsGrabbingRacket, false);
                 grabbedRacket.transform.parent = null;
                 grabbedRacket.GetComponent<Rigidbody>().isKinematic = false;
                 grabbedRacket.GetComponent<Rigidbody>().AddForce(racketVelocity * 100); //100은 임시로 정한 던지는 힘크기
                 offlightRacket();
+                }
             }
         }
 
         else if(other.CompareTag("BALL"))
         {
-            if(trigger.GetStateDown(hand))
+            if(photonView.isMine)
             {
+                if(trigger.GetStateDown(hand))
+                {
                 anim.SetBool (hashIsGrabbingBall, true);
 
                 grabbedBall = other.gameObject;
                 grabbedBall.transform.SetParent(transform);
                 grabbedBall.GetComponent<Rigidbody>().isKinematic = true;
                 grabbedBall.transform.localPosition = grabPosBall.localPosition;               
-            }
+                }
 
-            if(trigger.GetState(hand))
-            {
+                if(trigger.GetState(hand))
+                {
                 offlightBall();
-            }
+                }
 
-            if(trigger.GetStateUp(hand))
-            {
+                if(trigger.GetStateUp(hand))
+                {
                 anim.SetBool (hashIsGrabbingBall, false);
                 grabbedBall.transform.parent = null;
                 grabbedBall.GetComponent<Rigidbody>().isKinematic = false;
                 grabbedBall.GetComponent<Rigidbody>().AddForce(ballVelocity * 50); //50은 임시로 정한 던지는 힘크기
+                }
             }
         }
         
