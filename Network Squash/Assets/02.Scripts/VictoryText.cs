@@ -17,14 +17,14 @@ public class VictoryText : MonoBehaviour
 
     public void Player1Win()
     {
-        text.text = "Player1 Win!!";
+        text.text = "Player Win!!";
         Invoke("ResetText", 2f);
     }
-    public void Player2Win()
-    {
-        text.text = "Player2 Win!!";
-        Invoke("ResetText", 2f);
-    }
+    //public void Player2Win()
+    //{
+    //    text.text = "Player2 Win!!";
+    //    Invoke("ResetText", 2f);
+    //}
     void ResetText()
     {
         text.text = "";

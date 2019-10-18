@@ -9,42 +9,44 @@ public class ScoreCtrl : MonoBehaviour
                 
     public GameObject ball;
     public Transform ballRespawn1;
-    public Transform ballRespawn2;
+    //public Transform ballRespawn2;
     
     private int score1;
-    private int score2;
+    //private int score2;
     private Text text;
 
     void Start()
     {
+        //시작할 때 상대방의 골대(Goal2) 포톤.Instantiate하기
+
         instance = this;
-        Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
+        //Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
 
         text = GetComponent<Text>();        
         score1 = 0;
-        score2 = 0;
+        //score2 = 0;
     }
 
 
     void Update()
     {
-        if (score1 < 0 || score2 < 0)
+        if (score1 < 0)
         {
             score1 = 0;
-            score2 = 0;
+            //score2 = 0;
         }
         if(score1 >= 11)
         {
             Player1Win();
             
         }
-        if(score2 >= 11)
-        {
-            Player2Win();
-        }
+        //if(score2 >= 11)
+        //{
+        //    Player2Win();
+        //}
 
         //text.text = score1 + "  :  " + score2;
-        text.text = score1.ToString("00") + "  :  " + score2.ToString("00");
+        text.text = score1.ToString("00");
     }
     
     public void AddScore1()
@@ -55,49 +57,42 @@ public class ScoreCtrl : MonoBehaviour
             StartCoroutine(RespawnBall1());
         }
     }
-    public void AddScore2()
-    {
-        if(score2 < 12)
-        {
-            score2++;            
-            StartCoroutine(RespawnBall2());
-        }
-    }
+    //public void AddScore2()
+    //{
+    //    if(score2 < 12)
+    //    {
+    //        score2++;            
+    //        StartCoroutine(RespawnBall2());
+    //    }
+    //}
     void Player1Win()
     {
         //text.text = "Player1 Win!";
         VictoryText.instance.Player1Win();
         StartCoroutine(ScoreReset());
     }
-    void Player2Win()
-    {
-        //text.text = "Player2 Win!";
-        VictoryText.instance.Player2Win();
-        StartCoroutine(ScoreReset());
-    }
+    //void Player2Win()
+    //{
+    //    //text.text = "Player2 Win!";
+    //    VictoryText.instance.Player2Win();
+    //    StartCoroutine(ScoreReset());
+    //}
     IEnumerator RespawnBall1()
     {
         yield return new WaitForSeconds(0.5f);
-        Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
+        Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation); //포톤 Instantiate로
 
     }
-    IEnumerator RespawnBall2()
-    {
-        yield return new WaitForSeconds(0.5f);
-        Instantiate(ball, ballRespawn2.position, ballRespawn2.rotation);
-    }
-    void Player1GameSet()
-    {
-        Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
-    }
-    void Player2GameSet()
-    {
-        Instantiate(ball, ballRespawn2.position, ballRespawn2.rotation);
-    }
+    //IEnumerator RespawnBall2()
+    //{
+    //    yield return new WaitForSeconds(0.5f);
+    //    Instantiate(ball, ballRespawn2.position, ballRespawn2.rotation);
+    //}
+   
     IEnumerator ScoreReset()
     {
         yield return new WaitForSeconds(2f);
         score1 = 0;
-        score2 = 0;
+        //score2 = 0;
     }
 }
