@@ -18,7 +18,7 @@ public class ScoreCtrl : MonoBehaviour
     void Start()
     {
         instance = this;
-        Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
+        // Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
 
         text = GetComponent<Text>();        
         score1 = 0;
