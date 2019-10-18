@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-public class HandControl : MonoBehaviour {
+public class HandControl : Photon.MonoBehaviour {
     public SteamVR_Input_Sources hand = SteamVR_Input_Sources.Any;
     public SteamVR_Action_Boolean trigger = SteamVR_Actions.default_InteractUI;
 
@@ -41,6 +41,7 @@ public class HandControl : MonoBehaviour {
 
     void Start () 
     {
+        
         anim = GetComponent<Animator> ();
         outlineMt = Resources.Load<Material>("Outline");
         racketMt_default1 = Resources.Load<Material>("RacketDefault1");
@@ -52,6 +53,7 @@ public class HandControl : MonoBehaviour {
     // Update is called once per frame
     void Update ()
      {
+         if(photonView.isMine){
         if (trigger.GetStateDown (hand)) 
         {
             RacketGrab ();
@@ -76,6 +78,8 @@ public class HandControl : MonoBehaviour {
         ballVelocity = (curPos_Ball-prePos_Ball)/Time.deltaTime;
 
         prePos_Ball = curPos_Ball;
+
+         }
 
 
     }

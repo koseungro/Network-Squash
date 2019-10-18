@@ -20,7 +20,7 @@ public class ScoreCtrl : MonoBehaviour
         //시작할 때 상대방의 골대(Goal2) 포톤.Instantiate하기
 
         instance = this;
-        //Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
+        // Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
 
         text = GetComponent<Text>();        
         score1 = 0;
