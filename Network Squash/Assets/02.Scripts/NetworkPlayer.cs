@@ -7,10 +7,10 @@ public class NetworkPlayer : Photon.MonoBehaviour
 	public GameObject playerHead;
 	Camera cam;
 	AudioSource sound;
+
 	
 	public GameObject rightHandController;
 	public GameObject leftHandController;
-
 
 
 	// Start is called before the first frame update
