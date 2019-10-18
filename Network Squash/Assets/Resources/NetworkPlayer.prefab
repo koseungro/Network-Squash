@@ -831,6 +831,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHead: {fileID: 5041865115932816282}
+  rightHandController: {fileID: 5042835442298972438}
+  leftHandController: {fileID: 5042835442298872624}
 --- !u!114 &4380994431250582613
 MonoBehaviour:
   m_ObjectHideFlags: 0
