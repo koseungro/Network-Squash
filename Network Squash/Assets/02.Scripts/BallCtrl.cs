@@ -52,6 +52,7 @@ public class BallCtrl : Photon.MonoBehaviour
             _audio.PlayOneShot(bounceWall);
             
             Bounce(coll.contacts[0].normal);
+
             // Transform ball_Tr_atColl = transform;
 
             // photonView.RPC("Bounce", PhotonTargets.All, ball_Tr_atColl.position, ball_Tr_atColl.rotation, coll.contacts[0].normal);           
