@@ -112,7 +112,7 @@ public class HandControl : Photon.MonoBehaviour {
             if(photonView.isMine)
             {
                 if(trigger.GetStateDown(hand))
-                    {                
+                    {      
                     grabbedRacket = other.gameObject;
                     grabbedRacket.transform.SetParent(transform);
                     grabbedRacket.GetComponent<Rigidbody>().isKinematic = true;
