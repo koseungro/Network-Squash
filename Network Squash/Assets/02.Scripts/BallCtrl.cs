@@ -28,14 +28,14 @@ public class BallCtrl : Photon.MonoBehaviour
         _audio = GetComponent<AudioSource>();
         //rb.velocity = initialVelocity;
 
-        /*ballPower = Vector3.forward;*/ //업데이트문으로?
+        ballPower = Vector3.forward;
     }
 
 
     void Update()
     {
         lastFrameVelocity = rb.velocity;
-        ballPower = Vector3.forward;
+        //ballPower = Vector3.forward;
 
         if (Input.GetMouseButtonDown(0))
         {
