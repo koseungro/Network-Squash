@@ -46,4 +46,5 @@ MonoBehaviour:
   - TaggedPlayer
   - Bounce
   - Hit
+  - UpdatePlayerList
   DisableAutoOpenWizard: 1
