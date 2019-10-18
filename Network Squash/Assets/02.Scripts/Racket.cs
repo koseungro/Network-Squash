@@ -20,10 +20,16 @@ public class Racket : MonoBehaviour
     public AudioClip racketDown;
     public AudioClip ballHit;
     private AudioSource _audio;
+    private GameObject hit;
+    private GameObject _hit;
 
     public float speed = 2.0f;
 
-    public Transform racketRespawn1;    
+    public Transform racketRespawn1;
+
+    private float curTime = 0f;
+    private float hitTime = 0.25f;
+    private bool canHit = true;
 
     void Start()
     {
@@ -32,13 +38,22 @@ public class Racket : MonoBehaviour
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         _audio = GetComponent<AudioSource>();
+        hit = Resources.Load<GameObject>("Hit");
     }
 
 
     void Update()
     {
-        RacketSwing();
+        curTime += Time.deltaTime;
 
+        if (curTime < hitTime)
+        {
+            canHit = false;
+        }
+        else
+        {
+            canHit = true;
+        }
         // if (trigger.GetStateDown(hand))
         // {
         //     RacketSwing();
@@ -47,17 +62,26 @@ public class Racket : MonoBehaviour
         {
             RacketPosition();
         }
-        
+
+        RacketSwing();
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.transform.CompareTag("BALL"))
-        {
-            // other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * 0.1f;
+        if (canHit && other.transform.CompareTag("BALL"))
+        {                        
+            _hit = Instantiate(hit, other.transform.position, other.transform.rotation);
+
+            //other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * 0.5f;
             _audio.PlayOneShot(ballHit);
             PlayerCtrl.instance.FaceChange();
+            Debug.Log("Hit");
+
+            Destroy(_hit, 1f);
+
+            curTime = 0f;
         }
         if(other.transform.CompareTag("WALL"))
         {

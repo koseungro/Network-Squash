@@ -12,11 +12,10 @@ public class BallCtrl : Photon.MonoBehaviour
     //private Vector3 initialVelocity;
     private Vector3 lastFrameVelocity;
     private float minVelocity = 5f;
-    private AudioSource _audio;
+    private AudioSource _audio;    
 
     public AudioClip bounceWall;
-    public AudioClip goal;
-
+    
     Vector3 dir = new Vector3(1, 2, 2);
 
 
@@ -25,17 +24,18 @@ public class BallCtrl : Photon.MonoBehaviour
     {
         instance = this;
 
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();        
         _audio = GetComponent<AudioSource>();
         //rb.velocity = initialVelocity;
 
-        ballPower = Vector3.forward; //업데이트문으로?
+        /*ballPower = Vector3.forward;*/ //업데이트문으로?
     }
 
 
     void Update()
     {
         lastFrameVelocity = rb.velocity;
+        ballPower = Vector3.forward;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -55,24 +55,18 @@ public class BallCtrl : Photon.MonoBehaviour
             // Transform ball_Tr_atColl = transform;
 
             // photonView.RPC("Bounce", PhotonTargets.All, ball_Tr_atColl.position, ball_Tr_atColl.rotation, coll.contacts[0].normal);           
-        }
-        // if (coll.gameObject.CompareTag("RACKET"))
-        // {
-
-        //     Hit(coll.contacts[0].normal);
-        // }
+        }        
 
         if (coll.gameObject.tag == "Goal1") 
         {
-            ScoreCtrl.instance.AddScore2();
-            _audio.PlayOneShot(goal);
+            ScoreCtrl.instance.AddScore2();            
             Destroy(gameObject);
         }
 
         if (coll.gameObject.tag == "Goal2")
         {            
-            ScoreCtrl.instance.AddScore1();                    
-            _audio.PlayOneShot(goal);
+            ScoreCtrl.instance.AddScore1();                  
+            
             Destroy(gameObject);
             
         }

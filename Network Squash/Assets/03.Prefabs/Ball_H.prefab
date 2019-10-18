@@ -111,7 +111,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPower: {x: 0, y: 0, z: 0}
   bounceWall: {fileID: 8300000, guid: 7ae8d8155c5f0df4b8948d4fa4fb14c5, type: 3}
-  goal: {fileID: 8300000, guid: 7fcea57b0bb93744f866112f093d6712, type: 3}
 --- !u!54 &5459955139473255309
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -127,7 +126,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 3
+  m_CollisionDetection: 0
 --- !u!96 &876839655
 TrailRenderer:
   serializedVersion: 2
