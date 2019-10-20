@@ -8,12 +8,12 @@ public class ScoreCtrl : Photon.MonoBehaviour
     public static ScoreCtrl instance = null;
     public Transform[] ballSpawnPoints;
 
-    public GameObject ball;
-    public Transform ballRespawn1;
+    //public GameObject ball;
+    //public Transform ballRespawn1;
     //public Transform ballRespawn2;
     
     private int score1;
-    //private int score2;
+    private int score2;
     private Text text;
 
     void Start()
@@ -46,8 +46,8 @@ public class ScoreCtrl : Photon.MonoBehaviour
         //    Player2Win();
         //}
 
-        //text.text = score1 + "  :  " + score2;
-        text.text = score1.ToString("00");
+        text.text = score1 + "  :  " + score2;
+        //text.text = score1.ToString("00");
     }
     
     public void AddScore1()
@@ -58,14 +58,14 @@ public class ScoreCtrl : Photon.MonoBehaviour
             StartCoroutine(RespawnBall1());
         }
     }
-    //public void AddScore2()
-    //{
-    //    if(score2 < 12)
-    //    {
-    //        score2++;            
-    //        StartCoroutine(RespawnBall2());
-    //    }
-    //}
+    public void AddScore2()
+    {
+        if (score2 < 12)
+        {
+            score2++;
+            StartCoroutine(RespawnBall2());
+        }
+    }
     void Player1Win()
     {
         //text.text = "Player1 Win!";
@@ -85,12 +85,13 @@ public class ScoreCtrl : Photon.MonoBehaviour
         PhotonNetwork.InstantiateSceneObject("Ball_Network", ballSpawnPoints[0].position, ballSpawnPoints[0].rotation, 0, null);
 
     }
-    //IEnumerator RespawnBall2()
-    //{
-    //    yield return new WaitForSeconds(0.5f);
-    //    Instantiate(ball, ballRespawn2.position, ballRespawn2.rotation);
-    //}
-   
+    IEnumerator RespawnBall2()
+    {
+        yield return new WaitForSeconds(0.5f);
+        //Instantiate(ball, ballRespawn2.position, ballRespawn2.rotation);
+        PhotonNetwork.InstantiateSceneObject("Ball_Network", ballSpawnPoints[1].position, ballSpawnPoints[1].rotation, 0, null);
+    }
+
     IEnumerator ScoreReset()
     {
         yield return new WaitForSeconds(2f);
