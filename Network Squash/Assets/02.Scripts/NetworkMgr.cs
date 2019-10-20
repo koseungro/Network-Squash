@@ -4,13 +4,15 @@ using UnityEngine;
 using System;
 public class NetworkMgr : Photon.PunBehaviour
 {
+    public static NetworkMgr instance = null;
+
   int[] list = new int[2];
   public Transform[] playerSpawnPoint;
 	public Transform[] ballSpawnPoints;
   public Transform[] racketSpawnPoints;
     public Transform[] goalSpawnPoints;
     //public Transform[] textSpawnPoints;
-    int myIndexNum;
+    public int myIndexNum;
   GameObject networkPlayer;
   PhotonView photonView;
 
@@ -20,6 +22,7 @@ public class NetworkMgr : Photon.PunBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
       photonView = GetComponent<PhotonView>();
 
       if(PhotonNetwork.isMasterClient)
@@ -68,6 +71,8 @@ public class NetworkMgr : Photon.PunBehaviour
       PhotonNetwork.Instantiate("Racket_Network", racketSpawnPoints[myIndexNum].position, racketSpawnPoints[myIndexNum].rotation, 0);
         PhotonNetwork.Instantiate("GoalLine", goalSpawnPoints[myIndexNum].position, goalSpawnPoints[myIndexNum].rotation, 0);
         //PhotonNetwork.Instantiate("Text", textSpawnPoints[myIndexNum].position, textSpawnPoints[myIndexNum].rotation, 0);
+
+        Debug.Log("myIndexNum : " + myIndexNum);
     }
 
     [PunRPC]

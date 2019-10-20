@@ -18,6 +18,8 @@ public class BallCtrl : Photon.MonoBehaviour
     
     Vector3 dir = new Vector3(1, 2, 2);
 
+    private int id;
+
 
 
     void Start()
@@ -27,6 +29,9 @@ public class BallCtrl : Photon.MonoBehaviour
         rb = GetComponent<Rigidbody>();        
         _audio = GetComponent<AudioSource>();
         //rb.velocity = initialVelocity;
+
+        id = NetworkMgr.instance.myIndexNum + 1;
+        Debug.Log("id : " + id);
 
         ballPower = Vector3.forward;
     }
@@ -48,8 +53,7 @@ public class BallCtrl : Photon.MonoBehaviour
     {        
                 
         if (coll.gameObject.CompareTag("WALL") || coll.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("What!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        {            
             _audio.PlayOneShot(bounceWall);
             
             Bounce(coll.contacts[0].normal);
@@ -67,17 +71,27 @@ public class BallCtrl : Photon.MonoBehaviour
 
         if (coll.gameObject.tag == "Goal2")
         {
-            
+
             Destroy(gameObject);
-            /*f(coll.g*/
+
+            //if (PhotonNetwork.isMasterClient)
+
+            //if (PhotonNetwork.player.ID == 1)
+            //else if(PhotonNetwork.player.ID == 2)
+
+            //if (id == 1)
+            //else if(id == 2)
 
             if (photonView.isMine)
             {
+                //Debug.Log(id); 
+                //Master == 1
                 ScoreCtrl.instance.AddScore1();
                 
             }
-            else if(!photonView.isMine)
+            else
             {
+                Debug.Log("Gooood");
                 ScoreCtrl.instance.AddScore2();
             }
             
@@ -91,7 +105,7 @@ void Bounce(Vector3 collisionPoint)
     float speed = lastFrameVelocity.magnitude;
     Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionPoint);
 
-    rb.velocity = direction * Mathf.Max(speed, minVelocity) * 0.7f;
+    rb.velocity = direction * Mathf.Max(speed, minVelocity) * 0.8f;
 }
 
     // [PunRPC]
