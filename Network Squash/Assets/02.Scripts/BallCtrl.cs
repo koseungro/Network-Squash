@@ -76,10 +76,10 @@ public class BallCtrl : Photon.MonoBehaviour
 
             //if (PhotonNetwork.isMasterClient)
 
-            if (PhotonNetwork.player.ID == 1)
+            //if (PhotonNetwork.player.ID == 1)
             //else if(PhotonNetwork.player.ID == 2)
 
-            //if (id == 1)
+            if (id == 1)
             //else if(id == 2)
 
             //if (photonView.isMine)
@@ -89,7 +89,7 @@ public class BallCtrl : Photon.MonoBehaviour
                 ScoreCtrl.instance.AddScore1();
                 
             }
-            if (PhotonNetwork.player.ID == 2)
+            if (id == 2)
             {
                 Debug.Log("Gooood");
                 ScoreCtrl.instance.AddScore2();
