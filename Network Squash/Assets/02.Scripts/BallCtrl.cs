@@ -67,11 +67,16 @@ public class BallCtrl : Photon.MonoBehaviour
 
         if (coll.gameObject.tag == "Goal2")
         {
+            Destroy(gameObject);
+
             if (photonView.isMine)
             {
                 ScoreCtrl.instance.AddScore1();
-
-                Destroy(gameObject);
+                
+            }
+            if(!photonView.isMine)
+            {
+                ScoreCtrl.instance.AddScore2();
             }
             
         }
