@@ -106,34 +106,46 @@ public class HandControl : Photon.MonoBehaviour {
     }
 
     void OnTriggerStay(Collider other)
-    {        
-        if(other.CompareTag("RACKET"))
-        {
-            if(photonView.isMine)
-            {
-                if(trigger.GetStateDown(hand))
-                    {      
-                    grabbedRacket = other.gameObject;
-                    grabbedRacket.transform.SetParent(transform);
-                    grabbedRacket.GetComponent<Rigidbody>().isKinematic = true;
-                    grabbedRacket.transform.localPosition = grabPosRacket.localPosition;
-                    grabbedRacket.transform.localRotation = grabPosRacket.localRotation;
-                    }
-                if(trigger.GetState(hand))  
+    {      
+		if(photonView.isMine)
+		{ 
+			if(other.CompareTag("RACKET"))
+			{
+				//잡은 라켓 grabbedRacket으로 선언
+				grabbedRacket = other.gameObject;
+
+				if (trigger.GetState(hand))  
                     {
                     offlightRacket();
+					if(grabbedRacket.GetComponent<PhotonView>().ownerId == PhotonNetwork.player.ID)
+						{
+						grabbedRacket.transform.position = grabPosRacket.position;
+						grabbedRacket.transform.rotation = grabPosRacket.rotation;
+						}
                     }
 
-            if(trigger.GetStateUp(hand))
-                {
-                anim.SetBool (hashIsGrabbingRacket, false);
-                grabbedRacket.transform.parent = null;
-                grabbedRacket.GetComponent<Rigidbody>().isKinematic = false;
-                grabbedRacket.GetComponent<Rigidbody>().AddForce(racketVelocity * 100); //100은 임시로 정한 던지는 힘크기
-                offlightRacket();
+                if(trigger.GetStateDown(hand))
+                    {
+					if (grabbedRacket.GetComponent<PhotonView>().ownerId == PhotonNetwork.player.ID)
+						{
+						Transform holdTr = grabbedRacket.transform;
+						grabbedRacket.GetComponent<Rigidbody>().isKinematic = true;
+						photonView.RPC("HoldRacket", PhotonTargets.All, holdTr.position, holdTr.rotation, PhotonNetwork.player.ID);						
+						}
+					}
+
+				if(trigger.GetStateUp(hand))
+					{
+					anim.SetBool (hashIsGrabbingRacket, false);
+					offlightRacket();
+					Transform releaseTr = grabbedRacket.transform;
+					photonView.RPC("ReleaseRacket", PhotonTargets.All, releaseTr.position, releaseTr.rotation, PhotonNetwork.player.ID, racketVelocity);
+					//grabbedRacket.GetComponent<Rigidbody>().AddForce(racketVelocity * 100); //100은 임시로 정한 던지는 힘크기
+					
                 }
-            }
-        }
+			}
+
+		}
 
         else if(other.CompareTag("BALL"))
         {
@@ -205,4 +217,37 @@ public class HandControl : Photon.MonoBehaviour {
         outline_racket.materials = matarray_r;
 
     }
+
+	//공 잡을 때 동기화
+	[PunRPC]
+	void HoldRacket(Vector3 posAtHold, Quaternion rotAtHold, int playerID)
+	{
+		GameObject[] heldRacket = GameObject.FindGameObjectsWithTag("RACKET");
+
+		for (int i = 0; i < 2; i++)
+			if (heldRacket[i].GetComponent<PhotonView>().ownerId == playerID)
+			{
+				heldRacket[i].transform.position = posAtHold;
+				heldRacket[i].transform.rotation = rotAtHold;
+				heldRacket[i].transform.SetParent(this.gameObject.transform);
+				heldRacket[i].GetComponent<Rigidbody>().isKinematic = true;				
+			}
+	}
+
+	//공 놓을 때 동기화
+	[PunRPC]
+	void ReleaseRacket(Vector3 posAtRelease, Quaternion rotAtRelease, int playerID, Vector3 racketVel)
+	{
+		GameObject[] heldRacket = GameObject.FindGameObjectsWithTag("RACKET");
+
+		for (int i = 0; i < 2; i++)
+			if (heldRacket[i].GetComponent<PhotonView>().ownerId == playerID)
+			{
+				heldRacket[i].transform.position = posAtRelease;
+				heldRacket[i].transform.rotation = rotAtRelease;
+				heldRacket[i].transform.parent = null;
+				heldRacket[i].GetComponent<Rigidbody>().isKinematic = false;
+				heldRacket[i].GetComponent<Rigidbody>().AddForce(racketVel * 100); //100은 임시로 정한 던지는 힘크기
+			}
+	}
 }
