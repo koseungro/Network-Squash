@@ -61,40 +61,41 @@ public class BallCtrl : Photon.MonoBehaviour
             // Transform ball_Tr_atColl = transform;
 
             // photonView.RPC("Bounce", PhotonTargets.All, ball_Tr_atColl.position, ball_Tr_atColl.rotation, coll.contacts[0].normal);           
-        }        
+        }
 
-        //if (coll.gameObject.tag == "Goal1") 
-        //{
-        //    ScoreCtrl.instance.AddScore2();            
-        //    Destroy(gameObject);
-        //}
+        if (coll.gameObject.tag == "Goal1")
+        {
+            Destroy(gameObject);
+            ScoreCtrl.instance.AddScore2();            
+        }
 
         if (coll.gameObject.tag == "Goal2")
         {
 
             Destroy(gameObject);
-
-            //if (PhotonNetwork.isMasterClient)
+            ScoreCtrl.instance.AddScore1();
+            //coll.gameObject.GetPhotonView();
 
             //if (PhotonNetwork.player.ID == 1)
-            //else if(PhotonNetwork.player.ID == 2)
+            ////else if(PhotonNetwork.player.ID == 2)
 
-            if (id == 1)
-            //else if(id == 2)
+            ////if (id == 1)
+            ////else if(id == 2)
 
-            //if (photonView.isMine)
-            {
-                //Debug.Log(id); 
-                //Master == 1
-                ScoreCtrl.instance.AddScore1();
-                
-            }
-            if (id == 2)
-            {
-                Debug.Log("Gooood");
-                ScoreCtrl.instance.AddScore2();
-            }
-            
+            ////if (photonView.isMine)
+            //{
+            //    //Debug.Log(id); 
+            //    //Master == 1
+            //    Debug.Log("Stop");
+            //    ScoreCtrl.instance.AddScore1();
+
+            //}
+            //else if (PhotonNetwork.player.ID == 2)
+            //{
+            //    Debug.Log("Gooood");
+            //    ScoreCtrl.instance.AddScore2();
+            //}
+
         }
         
 

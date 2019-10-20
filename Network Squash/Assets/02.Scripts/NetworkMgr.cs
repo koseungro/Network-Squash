@@ -69,7 +69,7 @@ public class NetworkMgr : Photon.PunBehaviour
     {
       networkPlayer = PhotonNetwork.Instantiate("NetworkPlayer", playerSpawnPoint[myIndexNum].position, playerSpawnPoint[myIndexNum].rotation, 0);
       PhotonNetwork.Instantiate("Racket_Network", racketSpawnPoints[myIndexNum].position, racketSpawnPoints[myIndexNum].rotation, 0);
-        PhotonNetwork.Instantiate("GoalLine", goalSpawnPoints[myIndexNum].position, goalSpawnPoints[myIndexNum].rotation, 0);
+        //PhotonNetwork.Instantiate("GoalLine", goalSpawnPoints[myIndexNum].position, goalSpawnPoints[myIndexNum].rotation, 0);
         //PhotonNetwork.Instantiate("Text", textSpawnPoints[myIndexNum].position, textSpawnPoints[myIndexNum].rotation, 0);
 
         Debug.Log("myIndexNum : " + myIndexNum);

@@ -198,6 +198,7 @@ MonoBehaviour:
   goalSpawnPoints:
   - {fileID: 486611849}
   - {fileID: 1212431506}
+  myIndexNum: 0
 --- !u!4 &124866288
 Transform:
   m_ObjectHideFlags: 0
@@ -818,11 +819,11 @@ GameObject:
   - component: {fileID: 656260592}
   m_Layer: 0
   m_Name: Goal1
-  m_TagString: Goal2
+  m_TagString: Goal1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &656260592
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3153,7 +3154,7 @@ PrefabInstance:
     - target: {fileID: 9079995397912835246, guid: b9998839e432ba44e8435e429672010f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9079995397912835245, guid: b9998839e432ba44e8435e429672010f,
         type: 3}
