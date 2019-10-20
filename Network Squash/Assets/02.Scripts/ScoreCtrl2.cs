@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreCtrl : Photon.MonoBehaviour
+public class ScoreCtrl2 : Photon.MonoBehaviour
 {
-    public static ScoreCtrl instance = null;
+    public static ScoreCtrl2 instance = null;
     public Transform[] ballSpawnPoints;
 
     //public GameObject ball;
     //public Transform ballRespawn1;
     //public Transform ballRespawn2;
-    
+
     private int score1;
     private int score2;
     private Text text;
@@ -23,7 +23,7 @@ public class ScoreCtrl : Photon.MonoBehaviour
         instance = this;
         // Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
 
-        text = GetComponent<Text>();        
+        text = GetComponent<Text>();
         score1 = 0;
         //score2 = 0;
     }
@@ -36,25 +36,25 @@ public class ScoreCtrl : Photon.MonoBehaviour
             score1 = 0;
             //score2 = 0;
         }
-        if(score1 >= 11)
+        if (score1 >= 11)
         {
             Player1Win();
-            
+
         }
         //if(score2 >= 11)
         //{
         //    Player2Win();
         //}
 
-        text.text = score1 + "  :  " + score2;
+        text.text = score2 + "  :  " + score1;
         //text.text = score1.ToString("00");
     }
-    
+
     public void AddScore1()
     {
-        if(score1 < 12)
+        if (score1 < 12)
         {
-            score1++;            
+            score1++;
             //StartCoroutine(RespawnBall1());
         }
     }
@@ -70,7 +70,7 @@ public class ScoreCtrl : Photon.MonoBehaviour
     {
         //text.text = "Player1 Win!";
         VictoryText.instance.Player1Win();
-        StartCoroutine(ScoreReset());
+        //StartCoroutine(ScoreReset());
     }
     //void Player2Win()
     //{

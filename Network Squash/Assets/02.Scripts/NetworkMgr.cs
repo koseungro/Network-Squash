@@ -12,9 +12,11 @@ public class NetworkMgr : Photon.PunBehaviour
     public Transform[] goalSpawnPoints;
     public Transform[] scoreSpawnPoints;
     private int myIndexNum;
-    private GameObject scoreMgr;
 
-  GameObject networkPlayer;
+    private GameObject scoreMgr1;
+    private GameObject scoreMgr2;
+
+    GameObject networkPlayer;
   PhotonView photonView;
 
 
@@ -24,9 +26,10 @@ public class NetworkMgr : Photon.PunBehaviour
     void Start()
     {        
       photonView = GetComponent<PhotonView>();
-        scoreMgr = Resources.Load<GameObject>("ScoreMgr");
+        scoreMgr1 = Resources.Load<GameObject>("ScoreMgr1");
+        scoreMgr2 = Resources.Load<GameObject>("ScoreMgr2");
 
-      if(PhotonNetwork.isMasterClient)
+        if (PhotonNetwork.isMasterClient)
       {
         AddPlayer(PhotonNetwork.player.ID);
         PlayerSpawn();
@@ -71,7 +74,14 @@ public class NetworkMgr : Photon.PunBehaviour
       networkPlayer = PhotonNetwork.Instantiate("NetworkPlayer", playerSpawnPoint[myIndexNum].position, playerSpawnPoint[myIndexNum].rotation, 0);
       PhotonNetwork.Instantiate("Racket_Network", racketSpawnPoints[myIndexNum].position, racketSpawnPoints[myIndexNum].rotation, 0);
         //PhotonNetwork.Instantiate("GoalLine", goalSpawnPoints[myIndexNum].position, goalSpawnPoints[myIndexNum].rotation, 0);
-        Instantiate(scoreMgr, scoreSpawnPoints[myIndexNum].position, scoreSpawnPoints[myIndexNum].rotation);
+        if(PhotonNetwork.player.ID == 1)
+        {
+            Instantiate(scoreMgr1, scoreSpawnPoints[myIndexNum].position, scoreSpawnPoints[myIndexNum].rotation);
+        }
+        if(PhotonNetwork.player.ID == 2)
+        {
+            Instantiate(scoreMgr2, scoreSpawnPoints[myIndexNum].position, scoreSpawnPoints[myIndexNum].rotation);
+        }
 
         Debug.Log("myIndexNum : " + myIndexNum);
     }
