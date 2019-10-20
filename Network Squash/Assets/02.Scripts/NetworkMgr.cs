@@ -9,7 +9,7 @@ public class NetworkMgr : Photon.PunBehaviour
 	public Transform[] ballSpawnPoints;
   public Transform[] racketSpawnPoints;
     public Transform[] goalSpawnPoints;
-  int myIndexNum;
+    int myIndexNum;
   GameObject networkPlayer;
   PhotonView photonView;
 
