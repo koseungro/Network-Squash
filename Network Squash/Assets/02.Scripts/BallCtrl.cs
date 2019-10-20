@@ -72,8 +72,7 @@ public class BallCtrl : Photon.MonoBehaviour
             if (photonView.isMine)
             {
                 ScoreCtrl.instance.AddScore1();
-
-                //Destroy(gameObject);
+                
             }
             if(!photonView.isMine)
             {
