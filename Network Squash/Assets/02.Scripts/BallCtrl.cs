@@ -15,7 +15,7 @@ public class BallCtrl : Photon.MonoBehaviour
     private AudioSource _audio;    
 
     public AudioClip bounceWall;
-    public Transform[] ballSpawnPoints;
+    //public Transform[] ballSpawnPoints;
 
     Vector3 dir = new Vector3(1, 2, 2);       
 
@@ -61,44 +61,32 @@ public class BallCtrl : Photon.MonoBehaviour
         if (coll.gameObject.tag == "Goal1")
         {
             Destroy(gameObject);
-            ScoreCtrl.instance.AddScore2();            
-            ScoreCtrl2.instance.AddScore2();
-            StartCoroutine(RespawnBall2());
+
+            if (NetworkMgr.instance.s1 != null)
+            {
+                ScoreCtrl.instance.AddScore2();
+            }
+            if (NetworkMgr.instance.s2 != null)
+            {
+                ScoreCtrl2.instance.AddScore2();
+            }
+            BallMgr.instance.Ball2(); 
 
         }
 
         if (coll.gameObject.tag == "Goal2")
         {
-
             Destroy(gameObject);
-            Debug.Log("0");
-            ScoreCtrl.instance.AddScore1();
-            Debug.Log("1");
-            ScoreCtrl2.instance.AddScore1();
-            Debug.Log("2");
-            StartCoroutine(RespawnBall1());
-            Debug.Log("3");
-            //coll.gameObject.GetPhotonView();
 
-            //if (PhotonNetwork.player.ID == 1)
-            ////else if(PhotonNetwork.player.ID == 2)
-
-            ////if (id == 1)
-            ////else if(id == 2)
-
-            ////if (photonView.isMine)
-            //{
-            //    //Debug.Log(id); 
-            //    //Master == 1
-            //    Debug.Log("Stop");
-            //    ScoreCtrl.instance.AddScore1();
-
-            //}
-            //else if (PhotonNetwork.player.ID == 2)
-            //{
-            //    Debug.Log("Gooood");
-            //    ScoreCtrl.instance.AddScore2();
-            //}
+            if (NetworkMgr.instance.s1 != null)
+            {                
+                ScoreCtrl.instance.AddScore1();
+            }
+            if (NetworkMgr.instance.s2 != null)
+            {                
+                ScoreCtrl2.instance.AddScore1();
+            }
+            BallMgr.instance.Ball1();     
 
         }
         
@@ -153,20 +141,6 @@ void Bounce(Vector3 collisionPoint)
         transform.rotation = ballRot;
 
         rb.velocity = racket_Vel + ballPower * 0.1f;
-    }
-
-    IEnumerator RespawnBall1()
-    {
-        yield return new WaitForSeconds(0.5f);
-        //Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
-        PhotonNetwork.InstantiateSceneObject("Ball_Network", ballSpawnPoints[0].position, ballSpawnPoints[0].rotation, 0, null);
-
-    }
-    IEnumerator RespawnBall2()
-    {
-        yield return new WaitForSeconds(0.5f);
-        //Instantiate(ball, ballRespawn2.position, ballRespawn2.rotation);
-        PhotonNetwork.InstantiateSceneObject("Ball_Network", ballSpawnPoints[1].position, ballSpawnPoints[1].rotation, 0, null);
     }
 
 }

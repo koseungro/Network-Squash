@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 public class NetworkMgr : Photon.PunBehaviour
 {
+    public static NetworkMgr instance = null;
     
   int[] list = new int[2];
   public Transform[] playerSpawnPoint;
@@ -16,6 +17,9 @@ public class NetworkMgr : Photon.PunBehaviour
     private GameObject scoreMgr1;
     private GameObject scoreMgr2;
 
+    public GameObject s1;
+    public GameObject s2;
+
     GameObject networkPlayer;
   PhotonView photonView;
 
@@ -24,7 +28,8 @@ public class NetworkMgr : Photon.PunBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {        
+    {
+        instance = this;
       photonView = GetComponent<PhotonView>();
         scoreMgr1 = Resources.Load<GameObject>("ScoreMgr1");
         scoreMgr2 = Resources.Load<GameObject>("ScoreMgr2");
@@ -76,11 +81,11 @@ public class NetworkMgr : Photon.PunBehaviour
         //PhotonNetwork.Instantiate("GoalLine", goalSpawnPoints[myIndexNum].position, goalSpawnPoints[myIndexNum].rotation, 0);
         if(PhotonNetwork.player.ID == 1)
         {
-            Instantiate(scoreMgr1, scoreSpawnPoints[myIndexNum].position, scoreSpawnPoints[myIndexNum].rotation);
+            s1 = Instantiate(scoreMgr1, scoreSpawnPoints[myIndexNum].position, scoreSpawnPoints[myIndexNum].rotation);
         }
         if(PhotonNetwork.player.ID == 2)
         {
-            Instantiate(scoreMgr2, scoreSpawnPoints[myIndexNum].position, scoreSpawnPoints[myIndexNum].rotation);
+            s2 = Instantiate(scoreMgr2, scoreSpawnPoints[myIndexNum].position, scoreSpawnPoints[myIndexNum].rotation);
         }
 
         Debug.Log("myIndexNum : " + myIndexNum);
