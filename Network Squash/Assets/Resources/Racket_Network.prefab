@@ -152,7 +152,7 @@ MonoBehaviour:
   racketVelocity: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
   racketDown: {fileID: 8300000, guid: da7243059d8ed744abfe851fd03f8405, type: 3}
-  ballHit: {fileID: 8300000, guid: 747254780f5d81b40b16acac3b8f9585, type: 3}
+  ballHit: {fileID: 8300000, guid: 1011bcf481294f445b88c0f1fcb98f40, type: 3}
   speed: 5
   racketRespawn1: {fileID: 0}
 --- !u!82 &1134837828509322127

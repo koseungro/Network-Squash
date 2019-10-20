@@ -49,6 +49,7 @@ public class BallCtrl : Photon.MonoBehaviour
                 
         if (coll.gameObject.CompareTag("WALL") || coll.gameObject.CompareTag("Player"))
         {
+            Debug.Log("What!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             _audio.PlayOneShot(bounceWall);
             
             Bounce(coll.contacts[0].normal);

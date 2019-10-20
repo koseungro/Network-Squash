@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreCtrl : MonoBehaviour
+public class ScoreCtrl : Photon.MonoBehaviour
 {
     public static ScoreCtrl instance = null;
-                
+    public Transform[] ballSpawnPoints;
+
     public GameObject ball;
     public Transform ballRespawn1;
     //public Transform ballRespawn2;
@@ -17,7 +18,7 @@ public class ScoreCtrl : MonoBehaviour
 
     void Start()
     {
-        //시작할 때 상대방의 골대(Goal2) 포톤.Instantiate하기
+        //시작할 때 상대방의 골대(Goal2) Photon.Instantiate하기
 
         instance = this;
         // Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
@@ -80,7 +81,8 @@ public class ScoreCtrl : MonoBehaviour
     IEnumerator RespawnBall1()
     {
         yield return new WaitForSeconds(0.5f);
-        Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation); //포톤 Instantiate로
+        //Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
+        PhotonNetwork.InstantiateSceneObject("Ball_Network", ballSpawnPoints[0].position, ballSpawnPoints[0].rotation, 0, null);
 
     }
     //IEnumerator RespawnBall2()
