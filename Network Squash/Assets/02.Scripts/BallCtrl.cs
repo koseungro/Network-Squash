@@ -74,23 +74,24 @@ public class BallCtrl : Photon.MonoBehaviour
 
             Destroy(gameObject);
 
-            //if (PhotonNetwork.isMasterClient)
+			//if (PhotonNetwork.isMasterClient)
 
-            //if (PhotonNetwork.player.ID == 1)
-            //else if(PhotonNetwork.player.ID == 2)
+			if (PhotonNetwork.player.ID == 1)
+			//else if(PhotonNetwork.player.ID == 2)
 
-            if (id == 1)
-            //else if(id == 2)
+			//if (id == 1)
+			//else if(id == 2)
 
-            //if (photonView.isMine)
-            {
-                //Debug.Log(id); 
-                //Master == 1
+			//if (photonView.isMine)
+			{
+				//Debug.Log(id); 
+				//Master == 1
+				Debug.Log("Stop");
                 ScoreCtrl.instance.AddScore1();
                 
             }
-            if (id == 2)
-            {
+			else if (PhotonNetwork.player.ID == 2)
+			{
                 Debug.Log("Gooood");
                 ScoreCtrl.instance.AddScore2();
             }
