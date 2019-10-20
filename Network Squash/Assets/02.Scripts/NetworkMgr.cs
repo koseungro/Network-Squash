@@ -12,10 +12,13 @@ public class NetworkMgr : Photon.PunBehaviour
   public Transform[] racketSpawnPoints;
     public Transform[] goalSpawnPoints;
     public Transform[] scoreSpawnPoints;
+    public Transform[] winSpawnPoints;
     private int myIndexNum;
 
     private GameObject scoreMgr1;
     private GameObject scoreMgr2;
+    private GameObject win1;
+    private GameObject win2;
 
     public GameObject s1;
     public GameObject s2;
@@ -33,6 +36,8 @@ public class NetworkMgr : Photon.PunBehaviour
       photonView = GetComponent<PhotonView>();
         scoreMgr1 = Resources.Load<GameObject>("ScoreMgr1");
         scoreMgr2 = Resources.Load<GameObject>("ScoreMgr2");
+        win1 = Resources.Load<GameObject>("WinCanvas1");
+        win2 = Resources.Load<GameObject>("WinCanvas2");
 
         if (PhotonNetwork.isMasterClient)
       {
@@ -82,10 +87,12 @@ public class NetworkMgr : Photon.PunBehaviour
         if(PhotonNetwork.player.ID == 1)
         {
             s1 = Instantiate(scoreMgr1, scoreSpawnPoints[myIndexNum].position, scoreSpawnPoints[myIndexNum].rotation);
+            Instantiate(win1, winSpawnPoints[myIndexNum].position, winSpawnPoints[myIndexNum].rotation);
         }
         if(PhotonNetwork.player.ID == 2)
         {
             s2 = Instantiate(scoreMgr2, scoreSpawnPoints[myIndexNum].position, scoreSpawnPoints[myIndexNum].rotation);
+            Instantiate(win2, winSpawnPoints[myIndexNum].position, winSpawnPoints[myIndexNum].rotation);
         }
 
         Debug.Log("myIndexNum : " + myIndexNum);

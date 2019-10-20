@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VictoryText : MonoBehaviour
+public class VictoryText2 : MonoBehaviour
 {
-    public static VictoryText instance = null;
+    public static VictoryText2 instance = null;
 
     private Text text;
 

@@ -98,7 +98,7 @@ void Bounce(Vector3 collisionPoint)
     float speed = lastFrameVelocity.magnitude;
     Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionPoint);
 
-    rb.velocity = direction * Mathf.Max(speed, minVelocity) * 0.8f;
+    rb.velocity = direction * Mathf.Max(speed, minVelocity) * 1f;
 }
 
     // [PunRPC]

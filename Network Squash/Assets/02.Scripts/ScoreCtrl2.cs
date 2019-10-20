@@ -36,15 +36,15 @@ public class ScoreCtrl2 : Photon.MonoBehaviour
             score1 = 0;
             //score2 = 0;
         }
-        if (score1 >= 11)
+        if (score1 >= 10)
         {
             Player1Win();
 
         }
-        //if(score2 >= 11)
-        //{
-        //    Player2Win();
-        //}
+        if (score2 >= 10)
+        {
+            Player2Win();
+        }
 
         text.text = score2 + "  :  " + score1;
         //text.text = score1.ToString("00");
@@ -52,7 +52,7 @@ public class ScoreCtrl2 : Photon.MonoBehaviour
 
     public void AddScore1()
     {
-        if (score1 < 12)
+        if (score1 < 11)
         {
             score1++;
             //StartCoroutine(RespawnBall1());
@@ -60,7 +60,7 @@ public class ScoreCtrl2 : Photon.MonoBehaviour
     }
     public void AddScore2()
     {
-        if (score2 < 12)
+        if (score2 < 11)
         {
             score2++;
             //StartCoroutine(RespawnBall2());
@@ -69,15 +69,15 @@ public class ScoreCtrl2 : Photon.MonoBehaviour
     void Player1Win()
     {
         //text.text = "Player1 Win!";
-        VictoryText.instance.Player1Win();
-        //StartCoroutine(ScoreReset());
+        VictoryText2.instance.Player1Win();
+        StartCoroutine(ScoreReset());
     }
-    //void Player2Win()
-    //{
-    //    //text.text = "Player2 Win!";
-    //    VictoryText.instance.Player2Win();
-    //    StartCoroutine(ScoreReset());
-    //}
+    void Player2Win()
+    {
+        //text.text = "Player2 Win!";
+        VictoryText2.instance.Player2Win();
+        StartCoroutine(ScoreReset());
+    }
 
     //IEnumerator RespawnBall1()
     //{

@@ -24,8 +24,7 @@ public class BallMgr : Photon.MonoBehaviour
 
     IEnumerator RespawnBall1()
     {
-        yield return new WaitForSeconds(0.5f);
-        Debug.Log("HHHHHHHHHHHH");
+        yield return new WaitForSeconds(0.5f);        
         //Instantiate(ball, ballRespawn1.position, ballRespawn1.rotation);
         PhotonNetwork.InstantiateSceneObject("Ball_Network", ballSpawnPoints[0].position, ballSpawnPoints[0].rotation, 0, null);
 
