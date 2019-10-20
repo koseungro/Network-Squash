@@ -218,7 +218,7 @@ public class HandControl : Photon.MonoBehaviour {
 
     }
 
-	//공 잡을 때 동기화
+	//라켓 잡을 때 동기화
 	[PunRPC]
 	void HoldRacket(Vector3 posAtHold, Quaternion rotAtHold, int playerID)
 	{
@@ -234,7 +234,7 @@ public class HandControl : Photon.MonoBehaviour {
 			}
 	}
 
-	//공 놓을 때 동기화
+	//라켓 놓을 때 동기화
 	[PunRPC]
 	void ReleaseRacket(Vector3 posAtRelease, Quaternion rotAtRelease, int playerID, Vector3 racketVel)
 	{

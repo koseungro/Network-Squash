@@ -23,6 +23,8 @@ public class NetworkMgr : Photon.PunBehaviour
     public GameObject s1;
     public GameObject s2;
 
+    private int myID;
+
     GameObject networkPlayer;
   PhotonView photonView;
 
@@ -32,6 +34,9 @@ public class NetworkMgr : Photon.PunBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myID = PhotonNetwork.player.ID;
+        Debug.Log("My ID : " + myID);
+
         instance = this;
       photonView = GetComponent<PhotonView>();
         scoreMgr1 = Resources.Load<GameObject>("ScoreMgr1");
