@@ -38,7 +38,7 @@ public class NetworkMgr : Photon.PunBehaviour
     {
       int index = Array.IndexOf(list, 0);
       list[index] = _id;
-      photonView.RPC("UpdatePlayerList", PhotonTargets.All, list, index);
+      photonView.RPC("UpdatePlayerList", PhotonTargets.Others, list, index);
     }
 
     void RemovePlayer(int _id)
