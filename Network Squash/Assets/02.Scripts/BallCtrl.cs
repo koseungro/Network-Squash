@@ -16,10 +16,7 @@ public class BallCtrl : Photon.MonoBehaviour
 
     public AudioClip bounceWall;
     
-    Vector3 dir = new Vector3(1, 2, 2);
-
-    private int id;
-
+    Vector3 dir = new Vector3(1, 2, 2);       
 
 
     void Start()
@@ -29,10 +26,7 @@ public class BallCtrl : Photon.MonoBehaviour
         rb = GetComponent<Rigidbody>();        
         _audio = GetComponent<AudioSource>();
         //rb.velocity = initialVelocity;
-
-        id = NetworkMgr.instance.myIndexNum + 1;
-        Debug.Log("id : " + id);
-
+        
         ballPower = Vector3.forward;
     }
 
