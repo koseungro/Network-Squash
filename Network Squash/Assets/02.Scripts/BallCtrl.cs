@@ -211,8 +211,9 @@ public class BallCtrl : Photon.MonoBehaviour
 	void BallGrab(Vector3 grabBallPos, Quaternion grabBallRot)
 	{
 		rb.isKinematic = true;
-		transform.position = grabBallPos;
-		transform.rotation = grabBallRot;
+
+		//transform.position = grabBallPos;
+		//transform.rotation = grabBallRot;
 		
 	}
 
