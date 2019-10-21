@@ -190,15 +190,15 @@ public class BallCtrl : Photon.MonoBehaviour
 
 	//}
 
-	void OnTriggerExit(Collider other)
-	{
-		if(other.CompareTag("HAND"))
-		{
-			transform.parent = null;
-			photonView.RPC("BallRelease", PhotonTargets.All, transform.position, transform.rotation, rb.velocity);
-		}
+	//void OnTriggerExit(Collider other)
+	//{
+	//	if(other.CompareTag("HAND"))
+	//	{
+	//		transform.parent = null;
+	//		photonView.RPC("BallRelease", PhotonTargets.All, transform.position, transform.rotation, rb.velocity);
+	//	}
 		
-	}
+	//}
 	//if(other.CompareTag("MIDSYNC"))
 	//{
 	//	Transform ball_Trans_Mid = transform;
@@ -230,15 +230,15 @@ public class BallCtrl : Photon.MonoBehaviour
 	//}
 
 	//공이 손에서 던져졌을때 RPC
-	[PunRPC]
-	void BallRelease(Vector3 releaseBallPos, Quaternion releaseBallRot, Vector3 releaseBallVel)
-	{
-		transform.parent = null;
-		rb.isKinematic = false;
-		transform.position = releaseBallPos;
-		transform.rotation = releaseBallRot;
-		rb.velocity = releaseBallVel;
-	}
+	//[PunRPC]
+	//void BallRelease(Vector3 releaseBallPos, Quaternion releaseBallRot, Vector3 releaseBallVel)
+	//{
+	//	transform.parent = null;
+	//	rb.isKinematic = false;
+	//	transform.position = releaseBallPos;
+	//	transform.rotation = releaseBallRot;
+	//	rb.velocity = releaseBallVel;
+	//}
 
 	//공이 중간지점에서 위치와 속도 RPC
 	//[PunRPC]
