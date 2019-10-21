@@ -131,16 +131,62 @@ void Bounce(Vector3 collisionPoint)
             
             photonView.RPC("Hit", PhotonTargets.All, ball_Trans_Coll.position, ball_Trans_Coll.rotation, racketVel);
         }
+
+
+		
     }
 
+	
+	void OnTriggerStay(Collider other)
+	{
+		if (other.CompareTag("HAND"))
+		{
+			if (other.GetComponent<HandControl>().isGrabbingBall == true)
+			{
+				Transform ball_Trans_Grab = transform;
+				photonView.RPC("BallGrab", PhotonTargets.All, ball_Trans_Grab.position, ball_Trans_Grab.rotation);
+			}
+		}
+	}
 
-    [PunRPC]
-    void Hit(Vector3 ballTr, Quaternion ballRot, Vector3 racket_Vel)
+	void OnTriggerExit(Collider other)
+	{
+		if(other.CompareTag("HAND"))
+		{
+			if(other.GetComponent<HandControl>().isGrabbingBall == false)
+			{
+				Transform ball_Trans_Release = transform;
+				Vector3 releaseBallVelocity = rb.velocity;
+				photonView.RPC("BallRelease", PhotonTargets.All, ball_Trans_Release.position, ball_Trans_Release.rotation, releaseBallVelocity);
+			}
+		}
+	}
+
+	//공이 RACKET에 쳐졌을때 RPC
+	[PunRPC]
+    void Hit(Vector3 ballPos, Quaternion ballRot, Vector3 racket_Vel)
     {
-        transform.position = ballTr;
+        transform.position = ballPos;
         transform.rotation = ballRot;
 
         rb.velocity = racket_Vel + ballPower * 0.1f;
     }
+
+	//공이 손에 잡혀있을때 위치값 RPC
+	[PunRPC]
+	void BallGrab(Vector3 grabBallPos, Quaternion grabBallRot)
+	{
+		transform.position = grabBallPos;
+		transform.rotation = grabBallRot;
+	}
+
+	//공이 손에 던져졌을때 RPC
+	[PunRPC]
+	void BallRelease(Vector3 releaseBallPos, Quaternion releaseBallRot, Vector3 releaseBallVel)
+	{
+		transform.position = releaseBallPos;
+		transform.rotation = releaseBallRot;
+		rb.velocity = releaseBallVel;
+	}
 
 }

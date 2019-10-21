@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.networksquash.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "D:\\Network-Squash\\Network Squash\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "D:\\unity projects\\Network-Squash\\Network Squash\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "Network Squash [Testing]"
