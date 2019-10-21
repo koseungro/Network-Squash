@@ -133,7 +133,7 @@ public class NetworkMgr : Photon.PunBehaviour
         Vector3 racketpos = networkPlayer.transform.position - networkRacket.transform.position;
         float posDiff = racketpos.magnitude;
 
-        if (posDiff >= 2)
+        if (posDiff >= 0.5f)
         {
             //멀어진 라켓을 내 앞의 위치로
 
