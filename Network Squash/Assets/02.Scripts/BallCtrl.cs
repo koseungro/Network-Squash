@@ -168,7 +168,7 @@ public class BallCtrl : Photon.MonoBehaviour
         }
     }
 
-	
+
 	//void OnTriggerStay(Collider other)
 	//{
 	//	if (other.CompareTag("HAND"))
@@ -177,7 +177,7 @@ public class BallCtrl : Photon.MonoBehaviour
 	//		{
 	//			transform.SetParent(other.transform);
 	//			photonView.RPC("BallGrab", PhotonTargets.All, transform.position, transform.rotation);
-	//			//Transform ball_Trans_Grab = transform;
+	//			Transform ball_Trans_Grab = transform;
 	//		}
 
 	//		else if (other.GetComponent<HandControl>().isGrabbingBall == false)
@@ -190,13 +190,22 @@ public class BallCtrl : Photon.MonoBehaviour
 
 	//}
 
-		//if(other.CompareTag("MIDSYNC"))
-		//{
-		//	Transform ball_Trans_Mid = transform;
-		//	Vector3 midBallVelocity = rb.velocity;
-		//	photonView.RPC("MidSyncBall", PhotonTargets.All, ball_Trans_Mid.position, ball_Trans_Mid.rotation, midBallVelocity);
-		//}
-	
+	void OnTriggerExit(Collider other)
+	{
+		if(other.CompareTag("HAND"))
+		{
+			transform.parent = null;
+			photonView.RPC("BallRelease", PhotonTargets.All, transform.position, transform.rotation, rb.velocity);
+		}
+		
+	}
+	//if(other.CompareTag("MIDSYNC"))
+	//{
+	//	Transform ball_Trans_Mid = transform;
+	//	Vector3 midBallVelocity = rb.velocity;
+	//	photonView.RPC("MidSyncBall", PhotonTargets.All, ball_Trans_Mid.position, ball_Trans_Mid.rotation, midBallVelocity);
+	//}
+
 
 	//공이 RACKET에 쳐졌을때 RPC
 	[PunRPC]
@@ -220,16 +229,16 @@ public class BallCtrl : Photon.MonoBehaviour
 
 	//}
 
-	////공이 손에서 던져졌을때 RPC
-	//[PunRPC]
-	//void BallRelease(Vector3 releaseBallPos, Quaternion releaseBallRot, Vector3 releaseBallVel)
-	//{
-	//	transform.parent = null;
-	//	rb.isKinematic = false;
-	//	transform.position = releaseBallPos;
-	//	transform.rotation = releaseBallRot;
-	//	rb.velocity = releaseBallVel;
-	//}
+	//공이 손에서 던져졌을때 RPC
+	[PunRPC]
+	void BallRelease(Vector3 releaseBallPos, Quaternion releaseBallRot, Vector3 releaseBallVel)
+	{
+		transform.parent = null;
+		rb.isKinematic = false;
+		transform.position = releaseBallPos;
+		transform.rotation = releaseBallRot;
+		rb.velocity = releaseBallVel;
+	}
 
 	//공이 중간지점에서 위치와 속도 RPC
 	//[PunRPC]
