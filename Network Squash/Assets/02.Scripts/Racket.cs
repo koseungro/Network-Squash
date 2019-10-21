@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-public class Racket : MonoBehaviour
+public class Racket : Photon.MonoBehaviour
 {
     public static Racket instance = null;
     //private SteamVR_Behaviour_Pose pose;
@@ -62,13 +62,16 @@ public class Racket : MonoBehaviour
     {
 
         if (canHit && other.transform.CompareTag("BALL"))
-        {                        
-            _hit = Instantiate(hit, other.transform.position, other.transform.rotation);
-            haptic.Execute(0.2f, 0.4f, 10f, 5f, hand);
+        {
+            if(photonView.isMine)
+            {
+                haptic.Execute(0.2f, 0.4f, 10f, 5f, hand);
+                PlayerCtrl.instance.FaceChange();
+            }            
+            _hit = Instantiate(hit, other.transform.position, other.transform.rotation);            
             // other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * 0.5f;
 
-            _audio.PlayOneShot(ballHit);
-            PlayerCtrl.instance.FaceChange();
+            _audio.PlayOneShot(ballHit);            
             Debug.Log("Hit");
 
             Destroy(_hit, 1f);
