@@ -173,11 +173,15 @@ public class BallCtrl : Photon.MonoBehaviour
 	{
 		if (other.CompareTag("HAND"))
 		{
-			if(other.GetComponent<HandControl>().isGrabbingBall == true)
+			if (other.GetComponent<HandControl>().isGrabbingBall == true)
+			{
+				transform.SetParent(other.transform);
 				photonView.RPC("BallGrab", PhotonTargets.All, transform.position, transform.rotation);
 				//Transform ball_Trans_Grab = transform;
+			}
 
-			else if(other.GetComponent<HandControl>().isGrabbingBall == false)
+			else if (other.GetComponent<HandControl>().isGrabbingBall == false)
+				transform.parent = null;
 				photonView.RPC("BallRelease", PhotonTargets.All,transform.position, transform.rotation, rb.velocity);
 
 		}
