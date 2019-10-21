@@ -60,38 +60,51 @@ public class BallCtrl : Photon.MonoBehaviour
 
         if (coll.gameObject.tag == "Goal1"&& PhotonNetwork.player.ID == 1)
         {
-            Destroy(gameObject);
 
-            if (NetworkMgr.instance.s1 != null)
-            {
-                ScoreCtrl.instance.AddScore2();
-            }
-            if (NetworkMgr.instance.s2 != null)
-            {
-                ScoreCtrl2.instance.AddScore2();
-            }
-            BallMgr.instance.Ball2(); 
+			photonView.RPC("GoalPlayer1", PhotonTargets.All);
 
         }
 
         if (coll.gameObject.tag == "Goal2" && PhotonNetwork.player.ID == 2)
         {
-            Destroy(gameObject);
 
-            if (NetworkMgr.instance.s1 != null)
-            {                
-                ScoreCtrl.instance.AddScore1();
-            }
-            if (NetworkMgr.instance.s2 != null)
-            {                
-                ScoreCtrl2.instance.AddScore1();
-            }
-            BallMgr.instance.Ball1();     
-
-        }
+			photonView.RPC("GoalPlayer2", PhotonTargets.All);
+		}
         
 
     }
+
+	[PunRPC]
+	void GoalPlayer1()
+	{
+		Destroy(gameObject);
+
+		if (NetworkMgr.instance.s1 != null)
+		{
+			ScoreCtrl.instance.AddScore2();
+		}
+		if (NetworkMgr.instance.s2 != null)
+		{
+			ScoreCtrl2.instance.AddScore2();
+		}
+		BallMgr.instance.Ball2();
+	}
+
+	[PunRPC]
+	void GoalPlayer2()
+	{
+		Destroy(gameObject);
+
+		if (NetworkMgr.instance.s1 != null)
+		{
+			ScoreCtrl.instance.AddScore1();
+		}
+		if (NetworkMgr.instance.s2 != null)
+		{
+			ScoreCtrl2.instance.AddScore1();
+		}
+		BallMgr.instance.Ball1();
+	}
 
 	void Bounce(Vector3 collisionPoint)
 	{

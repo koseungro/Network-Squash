@@ -52,4 +52,6 @@ MonoBehaviour:
   - BallGrab
   - BallRelease
   - MidSyncBall
+  - GoalPlayer1
+  - GoalPlayer2
   DisableAutoOpenWizard: 1
