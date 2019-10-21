@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Valve.VR;
+
 public class NetworkMgr : Photon.PunBehaviour
 {
     public static NetworkMgr instance = null;
-    
-  int[] list = new int[2];
+
+    public SteamVR_Input_Sources hand = SteamVR_Input_Sources.Any;
+    public SteamVR_Action_Boolean grab = SteamVR_Actions.default_GrabGrip;
+
+    int[] list = new int[2];
   public Transform[] playerSpawnPoint;
 	public Transform[] ballSpawnPoints;
   public Transform[] racketSpawnPoints;
     public Transform[] goalSpawnPoints;
     public Transform[] scoreSpawnPoints;
     public Transform[] winSpawnPoints;
+    public Transform[] racketBackPoints;
     private int myIndexNum;
 
     private GameObject scoreMgr1;
@@ -25,13 +31,12 @@ public class NetworkMgr : Photon.PunBehaviour
 
     private int myID;
 
-    GameObject networkPlayer;
+   private GameObject networkPlayer;
   PhotonView photonView;
 
 
 	// public Transform player1Pos;
 
-    // Start is called before the first frame update
     void Start()
     {
         myID = PhotonNetwork.player.ID;
@@ -55,6 +60,13 @@ public class NetworkMgr : Photon.PunBehaviour
 		PhotonNetwork.InstantiateSceneObject("Ball_Network", ballSpawnPoints[0].position, ballSpawnPoints[0].rotation, 0, null);
     // PhotonNetwork.InstantiateSceneObject("Racket_Network", racketSpawnPoint1.position, racketSpawnPoint1.rotation, 0, null);
     // PhotonNetwork.Instantiate("Racket_Network", racketSpawnPoint2.position, racketSpawnPoint2.rotation, 0, null);
+    }
+    private void Update()
+    {
+        if (grab.GetStateDown(hand))
+        {
+            RacketPosition();
+        }
     }
 
     void AddPlayer(int _id)
@@ -115,11 +127,22 @@ public class NetworkMgr : Photon.PunBehaviour
       }
     }
 
+    void RacketPosition() //Grab 버튼 누를 시 라켓을 손의 위치로
+    {
+        Vector3 racketpos = networkPlayer.transform.position - Racket.instance.racketTr.position;
+        float posDiff = racketpos.magnitude;
 
+        if (posDiff >= 2)
+        {
+            //멀어진 라켓을 내 앞의 위치로
+            Racket.instance.racketTr.localPosition = racketBackPoints[myIndexNum].localPosition;
+            Racket.instance.racketTr.localRotation = racketBackPoints[myIndexNum].localRotation;
+            //tr.localPosition = racketRespawn1.transform.localPosition;
+            //tr.localRotation = racketRespawn1.transform.localRotation;
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
+            Racket.instance.racketTr.GetComponent<Rigidbody>().isKinematic = true;
+  
+
+        }
+    }
 }

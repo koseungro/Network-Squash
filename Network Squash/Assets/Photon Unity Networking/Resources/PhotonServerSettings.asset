@@ -47,4 +47,6 @@ MonoBehaviour:
   - Bounce
   - Hit
   - UpdatePlayerList
+  - HoldRacket
+  - ReleaseRacket
   DisableAutoOpenWizard: 1
