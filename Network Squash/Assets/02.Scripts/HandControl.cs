@@ -37,6 +37,8 @@ public class HandControl : Photon.MonoBehaviour {
     private MeshRenderer outline_racket;
     private Material[] matarray_r;
 
+	public bool isGrabbingBall = false; //BallCtrl Script에 RPC에 쓰임
+
  
 
     void Start () 
@@ -147,13 +149,18 @@ public class HandControl : Photon.MonoBehaviour {
 
 		}
 
-        else if(other.CompareTag("BALL"))
+        if(other.CompareTag("BALL"))
         {
             if(photonView.isMine)
             {
                 if(trigger.GetStateDown(hand))
                 {
                 anim.SetBool (hashIsGrabbingBall, true);
+				
+
+					isGrabbingBall = true; //BallCtrl Script에 전달용 (RPC에 쓰임)
+
+
 
                 grabbedBall = other.gameObject;
                 grabbedBall.transform.SetParent(transform);
@@ -169,9 +176,12 @@ public class HandControl : Photon.MonoBehaviour {
                 if(trigger.GetStateUp(hand))
                 {
                 anim.SetBool (hashIsGrabbingBall, false);
+
+
                 grabbedBall.transform.parent = null;
                 grabbedBall.GetComponent<Rigidbody>().isKinematic = false;
                 grabbedBall.GetComponent<Rigidbody>().AddForce(ballVelocity * 50); //50은 임시로 정한 던지는 힘크기
+				isGrabbingBall = false;
                 }
             }
         }
@@ -224,7 +234,7 @@ public class HandControl : Photon.MonoBehaviour {
 	{
 		GameObject[] heldRacket = GameObject.FindGameObjectsWithTag("RACKET");
 
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < heldRacket.Length; i++)
 			if (heldRacket[i].GetComponent<PhotonView>().ownerId == playerID)
 			{
 				heldRacket[i].transform.position = posAtHold;
