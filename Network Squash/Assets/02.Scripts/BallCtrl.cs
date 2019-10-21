@@ -169,26 +169,26 @@ public class BallCtrl : Photon.MonoBehaviour
     }
 
 	
-	void OnTriggerStay(Collider other)
-	{
-		if (other.CompareTag("HAND"))
-		{
-			if (other.GetComponent<HandControl>().isGrabbingBall == true)
-			{
-				transform.SetParent(other.transform);
-				photonView.RPC("BallGrab", PhotonTargets.All, transform.position, transform.rotation);
-				//Transform ball_Trans_Grab = transform;
-			}
+	//void OnTriggerStay(Collider other)
+	//{
+	//	if (other.CompareTag("HAND"))
+	//	{
+	//		if (other.GetComponent<HandControl>().isGrabbingBall == true)
+	//		{
+	//			transform.SetParent(other.transform);
+	//			photonView.RPC("BallGrab", PhotonTargets.All, transform.position, transform.rotation);
+	//			//Transform ball_Trans_Grab = transform;
+	//		}
 
-			else if (other.GetComponent<HandControl>().isGrabbingBall == false)
-			{
-				transform.parent = null;
-				photonView.RPC("BallRelease", PhotonTargets.All, transform.position, transform.rotation, rb.velocity);
-			}
+	//		else if (other.GetComponent<HandControl>().isGrabbingBall == false)
+	//		{
+	//			transform.parent = null;
+	//			photonView.RPC("BallRelease", PhotonTargets.All, transform.position, transform.rotation, rb.velocity);
+	//		}
 
-		}
+	//	}
 
-	}
+	//}
 
 		//if(other.CompareTag("MIDSYNC"))
 		//{
@@ -209,27 +209,27 @@ public class BallCtrl : Photon.MonoBehaviour
 
     }
 
-	//공이 손에 잡혀있을때 위치값 RPC
-	[PunRPC]
-	void BallGrab(Vector3 grabBallPos, Quaternion grabBallRot)
-	{
-		rb.isKinematic = true;
+	////공이 손에 잡혀있을때 위치값 RPC
+	//[PunRPC]
+	//void BallGrab(Vector3 grabBallPos, Quaternion grabBallRot)
+	//{
+	//	rb.isKinematic = true;
 
-		transform.position = grabBallPos;
-		transform.rotation = grabBallRot;
+	//	transform.position = grabBallPos;
+	//	transform.rotation = grabBallRot;
 
-	}
+	//}
 
-	//공이 손에서 던져졌을때 RPC
-	[PunRPC]
-	void BallRelease(Vector3 releaseBallPos, Quaternion releaseBallRot, Vector3 releaseBallVel)
-	{
-		transform.parent = null;
-		rb.isKinematic = false;
-		transform.position = releaseBallPos;
-		transform.rotation = releaseBallRot;
-		rb.velocity = releaseBallVel;
-	}
+	////공이 손에서 던져졌을때 RPC
+	//[PunRPC]
+	//void BallRelease(Vector3 releaseBallPos, Quaternion releaseBallRot, Vector3 releaseBallVel)
+	//{
+	//	transform.parent = null;
+	//	rb.isKinematic = false;
+	//	transform.position = releaseBallPos;
+	//	transform.rotation = releaseBallRot;
+	//	rb.velocity = releaseBallVel;
+	//}
 
 	//공이 중간지점에서 위치와 속도 RPC
 	//[PunRPC]
