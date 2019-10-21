@@ -11,6 +11,8 @@ TagManager:
   - RACKET
   - Goal1
   - Goal2
+  - HAND
+  - MIDSYNC
   layers:
   - Default
   - TransparentFX

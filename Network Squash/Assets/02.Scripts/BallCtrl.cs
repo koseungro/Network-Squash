@@ -93,13 +93,13 @@ public class BallCtrl : Photon.MonoBehaviour
 
     }
 
-void Bounce(Vector3 collisionPoint)
-{
+	void Bounce(Vector3 collisionPoint)
+	{
     float speed = lastFrameVelocity.magnitude;
     Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionPoint);
 
     rb.velocity = direction * Mathf.Max(speed, minVelocity) * 0.9f;
-}
+	}
 
     // [PunRPC]
     // void Bounce(Vector3 ball_tr, Quaternion ball_Rot, Vector3 collisionPoint)
@@ -131,9 +131,6 @@ void Bounce(Vector3 collisionPoint)
             
             photonView.RPC("Hit", PhotonTargets.All, ball_Trans_Coll.position, ball_Trans_Coll.rotation, racketVel);
         }
-
-
-		
     }
 
 	
@@ -159,6 +156,13 @@ void Bounce(Vector3 collisionPoint)
 				Vector3 releaseBallVelocity = rb.velocity;
 				photonView.RPC("BallRelease", PhotonTargets.All, ball_Trans_Release.position, ball_Trans_Release.rotation, releaseBallVelocity);
 			}
+		}
+
+		if(other.CompareTag("MIDSYNC"))
+		{
+			Transform ball_Trans_Mid = transform;
+			Vector3 midBallVelocity = rb.velocity;
+			photonView.RPC("MidSyncBall", PhotonTargets.All, ball_Trans_Mid.position, ball_Trans_Mid.rotation, midBallVelocity);
 		}
 	}
 
@@ -187,6 +191,15 @@ void Bounce(Vector3 collisionPoint)
 		transform.position = releaseBallPos;
 		transform.rotation = releaseBallRot;
 		rb.velocity = releaseBallVel;
+	}
+
+	//공이 중간지점에서 위치와 속도 RPC
+	[PunRPC]
+	void MidSyncBall(Vector3 midBallPos, Quaternion midBallRot, Vector3 midBallVel)
+	{
+		transform.position = midBallPos;
+		transform.rotation = midBallRot;
+		rb.velocity = midBallVel;
 	}
 
 }

@@ -51,4 +51,5 @@ MonoBehaviour:
   - ReleaseRacket
   - BallGrab
   - BallRelease
+  - MidSyncBall
   DisableAutoOpenWizard: 1
