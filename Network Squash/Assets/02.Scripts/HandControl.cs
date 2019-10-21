@@ -161,7 +161,7 @@ public class HandControl : Photon.MonoBehaviour,IPunObservable
 
 
 
-					grabbedBall = other.gameObject;
+				grabbedBall = other.gameObject;
                 grabbedBall.transform.position = grabPosBall.position;
 				grabbedBall.GetComponent<Rigidbody>().isKinematic = true;
 				grabbedBall.transform.SetParent(transform);
@@ -171,7 +171,10 @@ public class HandControl : Photon.MonoBehaviour,IPunObservable
 				if (trigger.GetState(hand))
                 {
                 offlightBall();
-                }
+					grabbedBall.transform.position = grabPosBall.position;
+					grabbedBall.GetComponent<Rigidbody>().isKinematic = true;
+					grabbedBall.transform.SetParent(transform);
+				}
 
                 if(trigger.GetStateUp(hand))
                 {
