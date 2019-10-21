@@ -181,8 +181,10 @@ public class BallCtrl : Photon.MonoBehaviour
 			}
 
 			else if (other.GetComponent<HandControl>().isGrabbingBall == false)
+			{
 				transform.parent = null;
-				photonView.RPC("BallRelease", PhotonTargets.All,transform.position, transform.rotation, rb.velocity);
+				photonView.RPC("BallRelease", PhotonTargets.All, transform.position, transform.rotation, rb.velocity);
+			}
 
 		}
 
@@ -212,9 +214,9 @@ public class BallCtrl : Photon.MonoBehaviour
 	{
 		rb.isKinematic = true;
 
-		//transform.position = grabBallPos;
-		//transform.rotation = grabBallRot;
-		
+		transform.position = grabBallPos;
+		transform.rotation = grabBallRot;
+
 	}
 
 	//공이 손에서 던져졌을때 RPC
