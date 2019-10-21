@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-public class HandControl : Photon.MonoBehaviour {
+public class HandControl : Photon.MonoBehaviour,IPunObservable
+{
     public SteamVR_Input_Sources hand = SteamVR_Input_Sources.Any;
     public SteamVR_Action_Boolean trigger = SteamVR_Actions.default_InteractUI;
 
@@ -257,5 +258,10 @@ public class HandControl : Photon.MonoBehaviour {
 				heldRacket[i].GetComponent<Rigidbody>().isKinematic = false;
 				heldRacket[i].GetComponent<Rigidbody>().AddForce(racketVel * 100); //100은 임시로 정한 던지는 힘크기
 			}
+	}
+
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+
 	}
 }

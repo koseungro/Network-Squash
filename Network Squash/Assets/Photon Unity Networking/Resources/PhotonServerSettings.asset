@@ -54,4 +54,5 @@ MonoBehaviour:
   - MidSyncBall
   - GoalPlayer1
   - GoalPlayer2
+  - BallBouncePlayer
   DisableAutoOpenWizard: 1
