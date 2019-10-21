@@ -1294,7 +1294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1011258024
 Transform:
   m_ObjectHideFlags: 0
@@ -3147,6 +3147,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1268280774}
     m_Modifications:
+    - target: {fileID: 4479258748717605686, guid: c333a5a5ed3237244809984a2156d53c,
+        type: 3}
+      propertyPath: m_Name
+      value: BallSpawnPoint1
+      objectReference: {fileID: 0}
     - target: {fileID: 4479258748717605685, guid: c333a5a5ed3237244809984a2156d53c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3201,11 +3206,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4479258748717605686, guid: c333a5a5ed3237244809984a2156d53c,
-        type: 3}
-      propertyPath: m_Name
-      value: BallSpawnPoint1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c333a5a5ed3237244809984a2156d53c, type: 3}
@@ -3285,6 +3285,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1268280774}
     m_Modifications:
+    - target: {fileID: 7951247686337772964, guid: b575ef95800cd324a8657abf32f2e311,
+        type: 3}
+      propertyPath: m_Name
+      value: BallSpawnPoint2
+      objectReference: {fileID: 0}
     - target: {fileID: 7951247686337772965, guid: b575ef95800cd324a8657abf32f2e311,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3339,11 +3344,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7951247686337772964, guid: b575ef95800cd324a8657abf32f2e311,
-        type: 3}
-      propertyPath: m_Name
-      value: BallSpawnPoint2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b575ef95800cd324a8657abf32f2e311, type: 3}
