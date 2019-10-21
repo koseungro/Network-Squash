@@ -173,20 +173,16 @@ public class BallCtrl : Photon.MonoBehaviour
 	{
 		if (other.CompareTag("HAND"))
 		{
+			if(other.GetComponent<HandControl>().isGrabbingBall == true)
+				photonView.RPC("BallGrab", PhotonTargets.All, transform.position, transform.rotation);
+				//Transform ball_Trans_Grab = transform;
 
-				Transform ball_Trans_Grab = transform;
-				photonView.RPC("BallGrab", PhotonTargets.All, ball_Trans_Grab.position, ball_Trans_Grab.rotation);
+			if(other.GetComponent<HandControl>().isGrabbingBall == false)
+				photonView.RPC("BallRelease", PhotonTargets.All,transform.position, transform.rotation, rb.velocity);
+
 		}
+
 	}
-
-	void OnTriggerExit(Collider other)
-	{
-		if(other.CompareTag("HAND"))
-		{
-				Transform ball_Trans_Release = transform;
-				Vector3 releaseBallVelocity = rb.velocity;
-				photonView.RPC("BallRelease", PhotonTargets.All, ball_Trans_Release.position, ball_Trans_Release.rotation, releaseBallVelocity);
-		}
 
 		//if(other.CompareTag("MIDSYNC"))
 		//{
@@ -194,7 +190,7 @@ public class BallCtrl : Photon.MonoBehaviour
 		//	Vector3 midBallVelocity = rb.velocity;
 		//	photonView.RPC("MidSyncBall", PhotonTargets.All, ball_Trans_Mid.position, ball_Trans_Mid.rotation, midBallVelocity);
 		//}
-	}
+	
 
 	//공이 RACKET에 쳐졌을때 RPC
 	[PunRPC]
@@ -210,9 +206,9 @@ public class BallCtrl : Photon.MonoBehaviour
 	[PunRPC]
 	void BallGrab(Vector3 grabBallPos, Quaternion grabBallRot)
 	{
+		rb.isKinematic = true;
 		transform.position = grabBallPos;
 		transform.rotation = grabBallRot;
-		rb.isKinematic = true;
 		
 	}
 
