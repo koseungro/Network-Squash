@@ -26,7 +26,7 @@ public class Racket : Photon.MonoBehaviour
     public float speed = 2.0f;
 
     private float curTime = 0f;
-    private float hitTime = 0.25f;
+    private float hitTime = 0.9f;
     private bool canHit = true;
 
     void Start()
@@ -65,7 +65,9 @@ public class Racket : Photon.MonoBehaviour
         {
             if(photonView.isMine)
             {
+                Debug.Log("표정표정1");
                 haptic.Execute(0.2f, 0.4f, 10f, 5f, hand);
+                Debug.Log("표정표정2");
                 PlayerCtrl.instance.FaceChange();
             }            
             _hit = Instantiate(hit, other.transform.position, other.transform.rotation);            
