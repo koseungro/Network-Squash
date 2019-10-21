@@ -9,17 +9,14 @@ public class Racket : MonoBehaviour
     //private SteamVR_Behaviour_Pose pose;
 
     public SteamVR_Input_Sources hand = SteamVR_Input_Sources.Any;
-    public SteamVR_Action_Boolean trigger = SteamVR_Actions.default_InteractUI;
-    //public SteamVR_Action_Boolean grab = SteamVR_Actions.default_GrabGrip;
+
     public SteamVR_Action_Vibration haptic = SteamVR_Actions.default_Haptic;
 
     private Vector3 curRacket_pos;
     private Vector3 preRacket_pos;
     public Vector3 racketVelocity;
-    public Transform racketTr;
-    private Rigidbody rb;
 
-    public GameObject player;
+
     public AudioClip racketDown;
     public AudioClip ballHit;
     private AudioSource _audio;
@@ -38,8 +35,7 @@ public class Racket : MonoBehaviour
 
         //pose = GetComponent<SteamVR_Behaviour_Pose>();
         //hand = pose.inputSource;
-        racketTr = GetComponent<Transform>();
-        rb = GetComponent<Rigidbody>();
+
         _audio = GetComponent<AudioSource>();
         hit = Resources.Load<GameObject>("Hit");
     }
@@ -57,11 +53,6 @@ public class Racket : MonoBehaviour
         {
             canHit = true;
         }
-
-        //if (grab.GetStateDown(hand))
-        //{
-        //    RacketPosition();
-        //}
 
         RacketSwing();
 
@@ -97,19 +88,4 @@ public class Racket : MonoBehaviour
         preRacket_pos = curRacket_pos;
     }
 
-    //void RacketPosition() //Grab 버튼 누를 시 라켓을 손의 위치로
-    //{
-    //    Vector3 racketpos = player.transform.position - gameObject.transform.position;
-    //    float posDiff = racketpos.magnitude;
-        
-    //    if (posDiff >= 2)
-    //    {
-    //        //멀어진 라켓을 내 앞의 위치로
-    //        //tr.localPosition = racketRespawn1.transform.localPosition;
-    //        //tr.localRotation = racketRespawn1.transform.localRotation;
-            
-    //        rb.isKinematic = true;
-    //        //멀어진 라켓 대신 새로운 라켓 생성?
-    //    }
-    //}
 }
