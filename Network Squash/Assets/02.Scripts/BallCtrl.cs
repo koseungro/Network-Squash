@@ -47,7 +47,7 @@ public class BallCtrl : Photon.MonoBehaviour
     public void OnCollisionEnter(Collision coll)
     {        
                 
-        if (coll.gameObject.CompareTag("WALL") || coll.gameObject.CompareTag("Player"))
+        if (coll.gameObject.CompareTag("WALL"))
         {            
             _audio.PlayOneShot(bounceWall);
             
@@ -57,6 +57,16 @@ public class BallCtrl : Photon.MonoBehaviour
 
             // photonView.RPC("Bounce", PhotonTargets.All, ball_Tr_atColl.position, ball_Tr_atColl.rotation, coll.contacts[0].normal);           
         }
+
+		if(coll.gameObject.CompareTag("Player"))
+		{
+			_audio.PlayOneShot(bounceWall);
+
+			Bounce(coll.contacts[0].normal);
+
+			photonView.RPC("BallBouncePlayer", PhotonTargets.All, transform.position, transform.rotation, rb.velocity);
+
+		}
 
         if (coll.gameObject.tag == "Goal1"&& PhotonNetwork.player.ID == 1)
         {
@@ -114,28 +124,38 @@ public class BallCtrl : Photon.MonoBehaviour
     rb.velocity = direction * Mathf.Max(speed, minVelocity) * 0.9f;
 	}
 
-    // [PunRPC]
-    // void Bounce(Vector3 ball_tr, Quaternion ball_Rot, Vector3 collisionPoint)
-    // {
-    //     //position 과 rotation 동기화
-    //     transform.position = ball_tr;
-    //     transform.rotation = ball_Rot;
 
-    //     float speed = lastFrameVelocity.magnitude;
-    //     Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionPoint);
+	//공이 player 몸에 맞았을 때 동기화
+	[PunRPC]
+	void BallBouncePlayer(Vector3 ballBouncePlayerPos, Quaternion ballBouncePlayerRot, Vector3 ballBouncePlayerVel)
+	{
+		transform.position = ballBouncePlayerPos;
+		transform.rotation = ballBouncePlayerRot;
+		rb.velocity = ballBouncePlayerVel;
+	}
 
-    //     rb.velocity = direction * Mathf.Max(speed, minVelocity) * 0.7f;
-        
-    // }
-    // void Hit(Vector3 collisionNormal)
-    // {
-    //     float speed = lastFrameVelocity.magnitude;
-    //     Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
+	// [PunRPC]
+	// void Bounce(Vector3 ball_tr, Quaternion ball_Rot, Vector3 collisionPoint)
+	// {
+	//     //position 과 rotation 동기화
+	//     transform.position = ball_tr;
+	//     transform.rotation = ball_Rot;
 
-    //     rb.velocity = direction * Mathf.Max(speed, 50);
-    // }
+	//     float speed = lastFrameVelocity.magnitude;
+	//     Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionPoint);
 
-    void OnTriggerEnter(Collider other)
+	//     rb.velocity = direction * Mathf.Max(speed, minVelocity) * 0.7f;
+
+	// }
+	// void Hit(Vector3 collisionNormal)
+	// {
+	//     float speed = lastFrameVelocity.magnitude;
+	//     Vector3 direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
+
+	//     rb.velocity = direction * Mathf.Max(speed, 50);
+	// }
+
+	void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("RACKET"))
         {
