@@ -163,7 +163,7 @@ public class BallCtrl : Photon.MonoBehaviour
         {
             Transform ball_Trans_Coll = transform;
             Vector3 racketVel = other.GetComponent<Racket>().racketVelocity;
-            
+
             photonView.RPC("Hit", PhotonTargets.All, ball_Trans_Coll.position, ball_Trans_Coll.rotation, racketVel);
         }
     }
