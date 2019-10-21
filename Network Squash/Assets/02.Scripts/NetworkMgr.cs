@@ -32,6 +32,7 @@ public class NetworkMgr : Photon.PunBehaviour
     private int myID;
 
    private GameObject networkPlayer;
+    private GameObject networkRacket;
   PhotonView photonView;
 
 
@@ -99,7 +100,7 @@ public class NetworkMgr : Photon.PunBehaviour
     void PlayerSpawn()
     {
       networkPlayer = PhotonNetwork.Instantiate("NetworkPlayer", playerSpawnPoint[myIndexNum].position, playerSpawnPoint[myIndexNum].rotation, 0);
-      PhotonNetwork.Instantiate("Racket_Network", racketSpawnPoints[myIndexNum].position, racketSpawnPoints[myIndexNum].rotation, 0);
+      networkRacket =  PhotonNetwork.Instantiate("Racket_Network", racketSpawnPoints[myIndexNum].position, racketSpawnPoints[myIndexNum].rotation, 0);
         //PhotonNetwork.Instantiate("GoalLine", goalSpawnPoints[myIndexNum].position, goalSpawnPoints[myIndexNum].rotation, 0);
         if(PhotonNetwork.player.ID == 1)
         {
@@ -129,20 +130,22 @@ public class NetworkMgr : Photon.PunBehaviour
 
     void RacketPosition() //Grab 버튼 누를 시 라켓을 손의 위치로
     {
-        Vector3 racketpos = networkPlayer.transform.position - Racket.instance.racketTr.position;
+        Vector3 racketpos = networkPlayer.transform.position - networkRacket.transform.position;
         float posDiff = racketpos.magnitude;
 
         if (posDiff >= 2)
         {
             //멀어진 라켓을 내 앞의 위치로
-            Racket.instance.racketTr.localPosition = racketBackPoints[myIndexNum].localPosition;
-            Racket.instance.racketTr.localRotation = racketBackPoints[myIndexNum].localRotation;
+
+            networkRacket.transform.localPosition = racketBackPoints[myIndexNum].localPosition;
+            networkRacket.transform.localRotation = racketBackPoints[myIndexNum].localRotation;
+            //Racket.instance.racketTr.localPosition = racketBackPoints[myIndexNum].localPosition;
+            //Racket.instance.racketTr.localRotation = racketBackPoints[myIndexNum].localRotation;
             //tr.localPosition = racketRespawn1.transform.localPosition;
             //tr.localRotation = racketRespawn1.transform.localRotation;
 
-            Racket.instance.racketTr.GetComponent<Rigidbody>().isKinematic = true;
-  
-
+            //Racket.instance.racketTr.GetComponent<Rigidbody>().isKinematic = true;
+            networkRacket.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }

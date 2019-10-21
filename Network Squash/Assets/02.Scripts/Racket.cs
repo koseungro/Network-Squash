@@ -73,7 +73,7 @@ public class Racket : MonoBehaviour
         if (canHit && other.transform.CompareTag("BALL"))
         {                        
             _hit = Instantiate(hit, other.transform.position, other.transform.rotation);
-            haptic.Execute(0.2f, 0.3f, 10f, 0.5f, hand);
+            haptic.Execute(0.2f, 0.4f, 10f, 5f, hand);
             // other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * 0.5f;
 
             _audio.PlayOneShot(ballHit);
