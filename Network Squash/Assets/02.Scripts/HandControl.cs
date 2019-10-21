@@ -162,7 +162,7 @@ public class HandControl : Photon.MonoBehaviour,IPunObservable
 
 
 					grabbedBall = other.gameObject;
-                grabbedBall.transform.localPosition = grabPosBall.localPosition;
+                grabbedBall.transform.position = grabPosBall.position;
 				grabbedBall.GetComponent<Rigidbody>().isKinematic = true;
 				grabbedBall.transform.SetParent(transform);
 				isGrabbingBall = true; //BallCtrl Script에 전달용 (RPC에 쓰임)
