@@ -62,14 +62,12 @@ public class Racket : Photon.MonoBehaviour
     {
 
         if (canHit && other.transform.CompareTag("BALL"))
-        {
-            if(photonView.isMine)
-            {
-                Debug.Log("표정표정1");
+        {           
+               
                 haptic.Execute(0.2f, 0.4f, 10f, 5f, hand);
-                Debug.Log("표정표정2");
+                
                 PlayerCtrl.instance.FaceChange();
-            }            
+                       
             _hit = Instantiate(hit, other.transform.position, other.transform.rotation);            
             // other.GetComponent<Rigidbody>().velocity = racketVelocity + BallCtrl.instance.ballPower * 0.5f;
 
