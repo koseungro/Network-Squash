@@ -58,7 +58,7 @@ public class BallCtrl : Photon.MonoBehaviour
             // photonView.RPC("Bounce", PhotonTargets.All, ball_Tr_atColl.position, ball_Tr_atColl.rotation, coll.contacts[0].normal);           
         }
 
-        if (coll.gameObject.tag == "Goal1"&& PhotonNetwork.player.ID == 1)
+        if (coll.gameObject.tag == "Goal1" && PhotonNetwork.player.ID == 1)
         {
 
 			photonView.RPC("GoalPlayer1", PhotonTargets.All);
