@@ -163,12 +163,12 @@ public class HandControl : Photon.MonoBehaviour {
 
 
                 grabbedBall = other.gameObject;
-                grabbedBall.transform.localPosition = grabPosBall.localPosition;               
-                //grabbedBall.transform.SetParent(transform);
-                //grabbedBall.GetComponent<Rigidbody>().isKinematic = true;
-                }
+                grabbedBall.transform.localPosition = grabPosBall.localPosition;
+				grabbedBall.GetComponent<Rigidbody>().isKinematic = true;
+				grabbedBall.transform.SetParent(transform);
+				}
 
-                if(trigger.GetState(hand))
+				if (trigger.GetState(hand))
                 {
                 offlightBall();
                 }
@@ -177,12 +177,11 @@ public class HandControl : Photon.MonoBehaviour {
                 {
                 anim.SetBool (hashIsGrabbingBall, false);
                 grabbedBall.GetComponent<Rigidbody>().AddForce(ballVelocity * 50); //50은 임시로 정한 던지는 힘크기
+				grabbedBall.transform.parent = null;
+				grabbedBall.GetComponent<Rigidbody>().isKinematic = false;
 				isGrabbingBall = false;
 
-
-                //grabbedBall.transform.parent = null;
-                //grabbedBall.GetComponent<Rigidbody>().isKinematic = false;
-                }
+				}
             }
         }
         
@@ -239,8 +238,8 @@ public class HandControl : Photon.MonoBehaviour {
 			{
 				heldRacket[i].transform.position = posAtHold;
 				heldRacket[i].transform.rotation = rotAtHold;
-				heldRacket[i].transform.SetParent(this.gameObject.transform);
 				heldRacket[i].GetComponent<Rigidbody>().isKinematic = true;				
+				heldRacket[i].transform.SetParent(this.gameObject.transform);
 			}
 	}
 
