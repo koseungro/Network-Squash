@@ -205,7 +205,11 @@ public class BallCtrl : Photon.MonoBehaviour
         transform.position = ballPos;
         transform.rotation = ballRot;
 
+<<<<<<< HEAD
         rb.velocity = racket_Vel + ballPower * 1.2f;
+=======
+        rb.velocity = racket_Vel + ballPower * 0.1f;
+>>>>>>> parent of db02cc1... ㄹㄹㄹ
     }
 
 	//공이 손에 잡혀있을때 위치값 RPC
