@@ -49,4 +49,6 @@ MonoBehaviour:
   - UpdatePlayerList
   - HoldRacket
   - ReleaseRacket
+  - BallGrab
+  - BallRelease
   DisableAutoOpenWizard: 1
