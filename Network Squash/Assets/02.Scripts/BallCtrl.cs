@@ -173,12 +173,9 @@ public class BallCtrl : Photon.MonoBehaviour
 	{
 		if (other.CompareTag("HAND"))
 		{
-			if (other.GetComponent<HandControl>().isGrabbingBall == true)
-			{
+
 				Transform ball_Trans_Grab = transform;
-				transform.SetParent(other.transform);
 				photonView.RPC("BallGrab", PhotonTargets.All, ball_Trans_Grab.position, ball_Trans_Grab.rotation);
-			}
 		}
 	}
 
@@ -186,12 +183,9 @@ public class BallCtrl : Photon.MonoBehaviour
 	{
 		if(other.CompareTag("HAND"))
 		{
-			if(other.GetComponent<HandControl>().isGrabbingBall == false)
-			{
 				Transform ball_Trans_Release = transform;
 				Vector3 releaseBallVelocity = rb.velocity;
 				photonView.RPC("BallRelease", PhotonTargets.All, ball_Trans_Release.position, ball_Trans_Release.rotation, releaseBallVelocity);
-			}
 		}
 
 		//if(other.CompareTag("MIDSYNC"))
