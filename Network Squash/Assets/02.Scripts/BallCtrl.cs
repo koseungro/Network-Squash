@@ -176,6 +176,7 @@ public class BallCtrl : Photon.MonoBehaviour
 			if (other.GetComponent<HandControl>().isGrabbingBall == true)
 			{
 				Transform ball_Trans_Grab = transform;
+				transform.SetParent(other.transform);
 				photonView.RPC("BallGrab", PhotonTargets.All, ball_Trans_Grab.position, ball_Trans_Grab.rotation);
 			}
 		}
@@ -193,12 +194,12 @@ public class BallCtrl : Photon.MonoBehaviour
 			}
 		}
 
-		if(other.CompareTag("MIDSYNC"))
-		{
-			Transform ball_Trans_Mid = transform;
-			Vector3 midBallVelocity = rb.velocity;
-			photonView.RPC("MidSyncBall", PhotonTargets.All, ball_Trans_Mid.position, ball_Trans_Mid.rotation, midBallVelocity);
-		}
+		//if(other.CompareTag("MIDSYNC"))
+		//{
+		//	Transform ball_Trans_Mid = transform;
+		//	Vector3 midBallVelocity = rb.velocity;
+		//	photonView.RPC("MidSyncBall", PhotonTargets.All, ball_Trans_Mid.position, ball_Trans_Mid.rotation, midBallVelocity);
+		//}
 	}
 
 	//공이 RACKET에 쳐졌을때 RPC
@@ -217,24 +218,28 @@ public class BallCtrl : Photon.MonoBehaviour
 	{
 		transform.position = grabBallPos;
 		transform.rotation = grabBallRot;
+		rb.isKinematic = true;
+		
 	}
 
-	//공이 손에 던져졌을때 RPC
+	//공이 손에서 던져졌을때 RPC
 	[PunRPC]
 	void BallRelease(Vector3 releaseBallPos, Quaternion releaseBallRot, Vector3 releaseBallVel)
 	{
+		transform.parent = null;
+		rb.isKinematic = false;
 		transform.position = releaseBallPos;
 		transform.rotation = releaseBallRot;
 		rb.velocity = releaseBallVel;
 	}
 
 	//공이 중간지점에서 위치와 속도 RPC
-	[PunRPC]
-	void MidSyncBall(Vector3 midBallPos, Quaternion midBallRot, Vector3 midBallVel)
-	{
-		transform.position = midBallPos;
-		transform.rotation = midBallRot;
-		rb.velocity = midBallVel;
-	}
+	//[PunRPC]
+	//void MidSyncBall(Vector3 midBallPos, Quaternion midBallRot, Vector3 midBallVel)
+	//{
+	//	transform.position = midBallPos;
+	//	transform.rotation = midBallRot;
+	//	rb.velocity = midBallVel;
+	//}
 
 }

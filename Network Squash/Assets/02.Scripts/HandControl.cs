@@ -158,14 +158,14 @@ public class HandControl : Photon.MonoBehaviour {
                 anim.SetBool (hashIsGrabbingBall, true);
 				
 
-					isGrabbingBall = true; //BallCtrl Script에 전달용 (RPC에 쓰임)
+				isGrabbingBall = true; //BallCtrl Script에 전달용 (RPC에 쓰임)
 
 
 
                 grabbedBall = other.gameObject;
-                grabbedBall.transform.SetParent(transform);
-                grabbedBall.GetComponent<Rigidbody>().isKinematic = true;
                 grabbedBall.transform.localPosition = grabPosBall.localPosition;               
+                //grabbedBall.transform.SetParent(transform);
+                //grabbedBall.GetComponent<Rigidbody>().isKinematic = true;
                 }
 
                 if(trigger.GetState(hand))
@@ -176,12 +176,12 @@ public class HandControl : Photon.MonoBehaviour {
                 if(trigger.GetStateUp(hand))
                 {
                 anim.SetBool (hashIsGrabbingBall, false);
-
-
-                grabbedBall.transform.parent = null;
-                grabbedBall.GetComponent<Rigidbody>().isKinematic = false;
                 grabbedBall.GetComponent<Rigidbody>().AddForce(ballVelocity * 50); //50은 임시로 정한 던지는 힘크기
 				isGrabbingBall = false;
+
+
+                //grabbedBall.transform.parent = null;
+                //grabbedBall.GetComponent<Rigidbody>().isKinematic = false;
                 }
             }
         }
